@@ -15,13 +15,13 @@ const Header = () => {
         </h1>
       </div>
       <div className="flex items-center gap-10">
-        <h1 className="text-sm font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
           My Feed
         </h1>
-        <h1 className="text-sm font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
           Discussions
         </h1>
-        <h1 className="text-sm font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
           Explore
         </h1>
       </div>
@@ -32,7 +32,7 @@ const Header = () => {
         />
         <div className="flex gap-1 items-center bg-blue-600 py-1.5 px-3 rounded-full">
           <TbPencilMinus className="text-white cursor-pointer" />
-          <button className="text-white text-sm">Write</button>
+          <button className="text-white text-[13px]">Write</button>
         </div>
         <div>
           <SwitchThemeProvider />
