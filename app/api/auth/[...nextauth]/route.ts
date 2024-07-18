@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth/next";
+import NextAuth, { getServerSession } from "next-auth/next";
 import GoogleProvider from 'next-auth/providers/google'
 import prisma from "@/lib/prisma";
 import { Adapter } from "next-auth/adapters";
@@ -16,6 +16,9 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt"
+    },
+    pages: {
+        signIn: '/login'
     },
     callbacks: {
         async jwt({ token, user }) {
@@ -39,4 +42,6 @@ export const authOptions: NextAuthOptions = {
     }
 }
 
-NextAuth(authOptions)
+export default NextAuth(authOptions)
+
+export const getAuthOption = async () => await getServerSession()
