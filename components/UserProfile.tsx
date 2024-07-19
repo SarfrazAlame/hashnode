@@ -1,16 +1,22 @@
+import Image from "next/image";
 import React from "react";
 
-const UserProfile = () => {
-  return (
-    <div>
-      <div className="flex gap-5">
-        <button className="text-sm">Log in</button>
-        <button className="text-sm border px-3 py-2.5 rounded-full border-blue-600 bg-blue-600 text-gray-100">
-          Sign up
-        </button>
-      </div>
-    </div>
-  );
+type User =
+  | {
+      id: string;
+      name: string | null | undefined;
+      email: string | null | undefined;
+      image: string | null | undefined;
+      username: string | null | undefined;
+      bio: string | null | undefined;
+      tagline: string | null | undefined;
+    }
+  | undefined;
+
+const UserProfile = ({ user }: { user: User }) => {
+  return <div>
+    <Image src={user?.image!} alt="" width={35} height={35} className="rounded-full"/>
+  </div>;
 };
 
 export default UserProfile;

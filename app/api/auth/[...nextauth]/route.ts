@@ -42,6 +42,6 @@ export const authOptions: NextAuthOptions = {
     }
 }
 
-export default NextAuth(authOptions)
+const handler = NextAuth(authOptions)
 
-export const getAuthOption = async () => await getServerSession()
+export { handler as GET, handler as POST }
