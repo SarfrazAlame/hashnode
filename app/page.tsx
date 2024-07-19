@@ -1,9 +1,10 @@
-import React from 'react'
+"use client";
+import { redirect, useRouter } from "next/navigation";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  const router = useRouter();
+  return redirect("/blogs");
+};
 
-export default page
+export default page;

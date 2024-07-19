@@ -16,7 +16,7 @@ const Header = async () => {
       <div className="flex items-center gap-1">
         <FaHashnode className="fill-blue-600" size={24} />
         <Link
-          href={"/"}
+          href={"/blogs"}
           className="text-xl font-bold text-gray-800 dark:text-gray-300"
         >
           Hashnode
@@ -40,7 +40,9 @@ const Header = async () => {
         />
         <div className="flex gap-1 items-center bg-blue-600 py-1.5 px-3 rounded-full">
           <TbPencilMinus className="text-white cursor-pointer" />
-          <button className="text-white text-[13px]">Write</button>
+          <Link href={"/draft"} className="text-white text-[13px]">
+            Write
+          </Link>
         </div>
         {user ? (
           <>
