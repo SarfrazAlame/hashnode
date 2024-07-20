@@ -72,11 +72,10 @@ model Post {
   title     String
   story     String
   imageUrl  String?
+  category  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -84,12 +83,6 @@ model Post {
   Save   Save[]
 }
 
-model Category {
-  id   String @id @default(uuid())
-  name String
-
-  post Post[]
-}
 
 model Like {
   id String @id @default(uuid())

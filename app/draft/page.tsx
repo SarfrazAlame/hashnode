@@ -10,6 +10,7 @@ import { ArrowLeft } from "lucide-react";
 const formSchems = z.object({
   title: z.string().min(1),
   story: z.string().min(1),
+  category: z.string().min(1),
   imageUrl: z.string().optional(),
 });
 
@@ -19,12 +20,15 @@ const page = () => {
     defaultValues: {
       title: "",
       story: "",
-      imageUrl: undefined,
+      category: "",
+      imageUrl: "",
     },
   });
+
   const onSubmit = async (value: z.infer<typeof formSchems>) => {
     console.log(value);
   };
+
   return (
     <Form {...form}>
       <form>
@@ -58,11 +62,28 @@ const page = () => {
               <FormItem>
                 <textarea
                   placeholder="Type for commands..."
-                  className="bg-inherit h-56 placeholder:text-xl placeholder:font-semibold lg:w-[50rem] md:w-[40rem] sm:w-[30rem] w-[20rem] outline-none text-xl"
+                  className="bg-inherit h-72 placeholder:text-xl placeholder:font-semibold lg:w-[50rem] md:w-[40rem] sm:w-[30rem] w-[20rem] outline-none text-xl"
                 />
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="story"
+            render={({ field }) => (
+              <FormItem>
+                <input
+                  placeholder="write category..."
+                  className="bg-inherit mt-12 placeholder:text-xl placeholder:font-semibold lg:w-[50rem] md:w-[40rem] sm:w-[30rem] w-[20rem] outline-none text-xl"
+                />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="w-full flex items-center justify-center my-12">
+          <button className="border px-4 py-2 rounded-full bg-blue-700 text-white hover:bg-blue-800">
+            Publish
+          </button>
         </div>
       </form>
     </Form>
