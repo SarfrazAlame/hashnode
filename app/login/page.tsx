@@ -23,7 +23,7 @@ const page = () => {
                 Log in or Sign up
               </p>
               <button
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/login/username" })}
                 className="py-2.5 w-80 bg-blue-600 text-white rounded-full border my-3"
               >
                 Continue with Google

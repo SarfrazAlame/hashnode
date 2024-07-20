@@ -6,13 +6,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-
-const formSchems = z.object({
-  title: z.string().min(1),
-  story: z.string().min(1),
-  category: z.string().min(1),
-  imageUrl: z.string().optional(),
-});
+import { formSchems } from "@/lib/Schema";
 
 const page = () => {
   const form = useForm<z.infer<typeof formSchems>>({
