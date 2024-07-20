@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import React from "react";
 import {
@@ -8,7 +8,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { RiDraftFill } from "react-icons/ri";
 import { Bookmark, LogOut, Notebook } from "lucide-react";
 import { MdAccountCircle } from "react-icons/md";
 import { signOut } from "next-auth/react";
@@ -48,7 +47,7 @@ const UserProfile = ({ user }: { user: User }) => {
           />
           <div>
             <p>{user?.name}</p>
-            <p>{user?.username}</p>
+            <p>{user?.bio}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -65,7 +64,10 @@ const UserProfile = ({ user }: { user: User }) => {
           <p className="text-[13px]">Account settings</p>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex gap-2 mt-3 cursor-pointer" onClick={()=>signOut({callbackUrl:'/login'})}>
+        <DropdownMenuItem
+          className="flex gap-2 mt-3 cursor-pointer"
+          onClick={() => signOut({ callbackUrl: "/login" })}
+        >
           <LogOut size={16} />
           <p className="text-[13px] text-orange-600">Log out</p>
         </DropdownMenuItem>
