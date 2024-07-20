@@ -11,25 +11,27 @@ import {
 import { Bookmark, LogOut, Notebook } from "lucide-react";
 import { MdAccountCircle } from "react-icons/md";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
-type User =
-  | {
-      id: string;
-      name: string | null | undefined;
-      email: string | null | undefined;
-      image: string | null | undefined;
-      username: string | null | undefined;
-      bio: string | null | undefined;
-      tagline: string | null | undefined;
-    }
-  | undefined;
+type User = {
+  id: string;
+  name: string | null;
+  username: string | null;
+  bio: string | null;
+  tagline: string | null;
+  email: string | null;
+  emailVerified: Date | null;
+  image: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 const UserProfile = ({ user }: { user: User }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Image
-          src={user?.image!}
+          src={user?.image || ""}
           alt=""
           width={35}
           height={35}
@@ -37,18 +39,20 @@ const UserProfile = ({ user }: { user: User }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="py-4 w-56">
-        <DropdownMenuItem className="flex items-center gap-1  cursor-pointer">
-          <Image
-            src={user?.image!}
-            alt=""
-            width={40}
-            height={40}
-            className="rounded-full"
-          />
-          <div>
-            <p>{user?.name}</p>
-            <p>{user?.bio}</p>
-          </div>
+        <DropdownMenuItem >
+          <Link  className="flex items-center gap-1  cursor-pointer"href={`/blogs/${user.username}`}>
+            <Image
+              src={user?.image!}
+              alt=""
+              width={40}
+              height={40}
+              className="rounded-full"
+            />
+            <div>
+              <p>{user?.name}</p>
+              <p>{user?.username}</p>
+            </div>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">

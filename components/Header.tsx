@@ -6,13 +6,15 @@ import SwitchThemeProvider from "./SwitchThemeProvider";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import Signup from "./Signup";
-import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { UserDetails } from "@/auth/Recieve";
 
 const Header = async () => {
-  const session = await getServerSession()
-  const user = session?.user
+  const session = await getServerSession();
+  const user = session?.user;
+
+  const user1 = await UserDetails(user?.id!, user?.email!)
+
   return (
     <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 px-12">
       <div className="flex items-center gap-1">
@@ -55,7 +57,8 @@ const Header = async () => {
               size={22}
               className="text-gray-500 cursor-pointer dark:text-gray-300"
             />
-            <UserProfile user={user} />
+            {/* @ts-ignore */}
+            <UserProfile user={user1} />
           </>
         ) : (
           <>

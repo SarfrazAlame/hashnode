@@ -10,7 +10,7 @@ export const formSchems = z.object({
 export const UserSchema = z.object({
     name: z.string().min(1),
     username: z.string().min(3),
-    bio: z.string().min(10),
+    bio: z.string().min(5),
     tagline: z.string(),
     email: z.string()
 })
