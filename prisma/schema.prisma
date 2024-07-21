@@ -51,7 +51,7 @@ model Session {
 model User {
   id            String    @id @default(uuid())
   name          String?
-  username      String?    @unique
+  username      String?   @unique
   bio           String?
   tagline       String?
   email         String    @unique
@@ -60,6 +60,14 @@ model User {
   location      String?
   tech          String?
   available     String?
+  twitter       String?
+  instagram     String?
+  github        String?
+  stackoverflow String?
+  facebook      String?
+  website       String?
+  linkedin      String?
+  youtube       String?
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   posts         Post[]

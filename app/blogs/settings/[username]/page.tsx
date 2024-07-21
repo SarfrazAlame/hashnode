@@ -13,12 +13,13 @@ const page = async ({
   const user = await UserProfile(username);
   return (
     <main className="w-full h-screen flex justify-center">
-      <div className="w-full flex justify-center gap-5 my-6">
-        <div className="w-1/6 h-fit flex flex-col gap-y-2">
+      <div className="w-full flex  justify-center">
+      <div className="w-full md:flex justify-center gap-4 my-6">
+        <div className="lg:w-1/6 h-fit flex flex-col gap-y-2">
           <div className="border rounded-md text-2xl font-bold h-14  px-3 py-2.5">
             User Settings
           </div>
-          <div className="border rounded-md flex flex-col gap-y-2">
+          <div className="border rounded-md flex md:flex-col gap-y-2">
             <div className="flex items-center gap-3 px-6 py-3 cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-900">
               <HiOutlineUserCircle
                 size={25}
@@ -57,7 +58,10 @@ const page = async ({
             </div>
           </div>
         </div>
-        <Setting user={user}/>
+        <div className="w-7/12 my-3 md:my-0">
+          <Setting user={user} />
+        </div>
+      </div>
       </div>
     </main>
   );

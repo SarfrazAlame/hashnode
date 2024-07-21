@@ -3,6 +3,15 @@ import { Pen, PenIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {
+  FaFacebook,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaLocationDot,
+  FaStackOverflow,
+} from "react-icons/fa6";
+import { TbWorld } from "react-icons/tb";
 
 const page = async ({
   params: { username },
@@ -41,17 +50,73 @@ const page = async ({
           </div>
         </div>
 
+        <div className="my-6 border flex items-center gap-8 justify-center h-20 rounded-md">
+          <div className="flex items-center gap-4 justify-center">
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              <FaLinkedin className="text-gray-500 dark:text-gray-400" />
+            </Link>
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              <FaStackOverflow className="text-gray-500 dark:text-gray-400" />
+            </Link>
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              {" "}
+              <FaGithub className="text-gray-500 dark:text-gray-400" />
+            </Link>
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              {" "}
+              <TbWorld className="text-gray-500 dark:text-gray-400" />
+            </Link>
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              {" "}
+              <FaFacebook className="text-gray-500 dark:text-gray-400" />
+            </Link>
+            <Link
+              href={""}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
+            >
+              {" "}
+              <FaInstagram className="text-gray-500 dark:text-gray-400" />
+            </Link>
+          </div>
+          <div className="flex items-center gap-3">
+            <FaLocationDot className="text-gray-500 dark:text-gray-400" />
+            <p className="text-sm">{user?.location}</p>
+          </div>
+        </div>
+
         <div className="md:flex h-full md:gap-5 justify-between mt-12">
           <div className="border lg:w-1/3 md:w-1/4 h-1/4 rounded-md py-4">
-            <h1 className="text-lg font-bold text-center">About Me</h1>
+            <h1 className="text-lg font-bold text-center text-gray-700 dark:text-gray-200">
+              About Me
+            </h1>
+            <p className="text-center my-5 px-6 text-sm">{user?.bio}</p>
           </div>
           <div className="border lg:w-1/3 md:w-1/4 h-1/4 rounded-md my-3 py-4 md:my-0">
-            <h1 className="text-lg font-bold text-center">My Tech Stack</h1>
+            <h1 className="text-lg font-bold text-center text-gray-700 dark:text-gray-200">
+              My Tech Stack
+            </h1>
+            <p className="text-center my-5 px-6 text-sm">{user?.tech}</p>
           </div>
           <div className="border lg:w-1/3 md:w-1/4 h-1/4 rounded-md py-4">
-            <h1 className="text-lg font-bold text-center">
+            <h1 className="text-lg font-bold text-center text-gray-700 dark:text-gray-200">
               I am available for
             </h1>
+            <p className="text-center my-5 px-6 text-sm">{user?.available}</p>
           </div>
         </div>
       </div>

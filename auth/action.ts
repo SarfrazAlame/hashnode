@@ -11,7 +11,7 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string
         throw new Error("Complete all field")
     }
 
-    const { name, email, username, bio, tagline } = validatedField.data
+    const { name, email, username, bio, tagline, image, available, facebook, github, instagram, linkedin, location, stackoverflow, tech, twitter, website, youtube } = validatedField.data
 
     try {
         await prisma.user.update({
@@ -23,7 +23,17 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string
                 email,
                 username,
                 bio,
-                tagline
+                tagline,
+                available,
+                facebook,
+                github,
+                instagram,
+                location,
+                linkedin,
+                stackoverflow,
+                tech,
+                twitter,
+                website, youtube
             }
         })
         revalidatePath('/login/username')

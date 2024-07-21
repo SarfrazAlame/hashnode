@@ -13,8 +13,16 @@ export const UserSchema = z.object({
     bio: z.string().min(5),
     tagline: z.string(),
     email: z.string(),
-    image:z.string(),
+    image: z.string(),
     location: z.string().optional(),
     tech: z.string().optional(),
-    available: z.string().optional()
+    available: z.string().optional(),
+    twitter: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+    github: z.string().optional(),
+    stackoverflow: z.string().optional(),
+    website: z.string().optional(),
+    linkedin: z.string().optional(),
+    youtube: z.string().optional(),
 })
