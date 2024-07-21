@@ -19,16 +19,17 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/login'
     },
+    
     callbacks: {
         async session({ session, token }) {
             if (session) {
-                session.user.id = token.id as string
+                session.user.id = token.id
                 session.user.name = token.name
                 session.user.email = token.email
                 session.user.image = token.picture
-                session.user.bio = token.bio as string
-                session.user.username = token.username as string
-                session.user.tagline = token.tagline as string
+                session.user.bio = token.bio
+                session.user.username = token.username
+                session.user.tagline = token.tagline
             }
             return session
         },
@@ -39,7 +40,7 @@ export const authOptions: NextAuthOptions = {
                 }
             })
             if (!prismaUser) {
-                token.id = user.id
+                token.sub = user.id
             }
 
             if (!prismaUser?.username) {
@@ -53,7 +54,7 @@ export const authOptions: NextAuthOptions = {
                 })
             }
 
-            if (token) {
+            if (token && user) {
                 token.id = user.id
                 token.name = user.name
                 token.email = user.email

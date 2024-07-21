@@ -86,11 +86,11 @@ model Post {
   category  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Like      Like[]
+  Save      Save[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Like   Like[]
-  Save   Save[]
 }
 
 model Like {
