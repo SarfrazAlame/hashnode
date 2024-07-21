@@ -16,7 +16,7 @@ const Header = async () => {
   const user1 = await UserDetails(user?.id!, user?.email!);
 
   return (
-    <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 px-12">
+    <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 md:px-12 sm:px-5 px-3">
       <div className="flex items-center gap-1">
         <FaHashnode className="fill-blue-600" size={24} />
         <Link

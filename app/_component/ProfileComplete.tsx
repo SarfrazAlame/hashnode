@@ -37,7 +37,7 @@ const ProfileComplete = ({ user }: { user: User }) => {
 
   const onSubmit = async (value: z.infer<typeof UserSchema>) => {
     try {
-      await CreateUser(value, user?.id);
+      await CreateUser(value, user?.email!);
       toast.success("Profile completed");
     } catch (error) {
       console.log(error);

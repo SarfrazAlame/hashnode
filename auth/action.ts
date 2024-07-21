@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 
-export const CreateUser = async (value: z.infer<typeof UserSchema>, id: string | undefined) => {
+export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string) => {
     const validatedField = UserSchema.safeParse(value)
 
     if (!validatedField.success) {
@@ -16,7 +16,7 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, id: string |
     try {
         await prisma.user.update({
             where: {
-                id
+                email: mail
             },
             data: {
                 name,
