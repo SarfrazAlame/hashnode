@@ -32,8 +32,8 @@ const page = async ({
           </div>
           <div className="mx-32 sm:mx-0 -mt-6 sm:">
             <Link
-              href={"/blogs/settings"}
-              className="flex border px-4 py-2 rounded-full gap-1 items-center bg-blue-600 text-gray-100 dark:text-gray-100"
+              href={`/blogs/settings/${user?.username}`}
+              className="flex border cursor-pointer px-4 py-2 rounded-full gap-1 items-center bg-blue-600 text-gray-100 dark:text-gray-100"
             >
               <PenIcon size={16} />
               Edit

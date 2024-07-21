@@ -1,9 +1,16 @@
+import Setting from "@/app/_component/Setting";
+import { UserProfile } from "@/auth/Recieve";
 import { Settings } from "lucide-react";
 import React from "react";
 import { HiCodeBracket, HiOutlineUserCircle } from "react-icons/hi2";
 import { PiNotebookThin } from "react-icons/pi";
 
-const page = () => {
+const page = async ({
+  params: { username },
+}: {
+  params: { username: string };
+}) => {
+  const user = await UserProfile(username);
   return (
     <main className="w-full h-screen flex justify-center">
       <div className="w-full flex justify-center gap-5 my-6">
@@ -50,14 +57,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2 h-fit border rounded-md">
-          <div>
-
-          </div>
-          <div>
-            
-          </div>
-        </div>
+        <Setting user={user}/>
       </div>
     </main>
   );
