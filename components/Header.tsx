@@ -13,7 +13,7 @@ const Header = async () => {
   const session = await getServerSession();
   const user = session?.user;
 
-  const user1 = await UserDetails(user?.id!, user?.email!)
+  const user1 = await UserDetails(user?.id!, user?.email!);
 
   return (
     <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 px-12">
@@ -21,12 +21,12 @@ const Header = async () => {
         <FaHashnode className="fill-blue-600" size={24} />
         <Link
           href={"/blogs"}
-          className="text-xl font-bold text-gray-800 dark:text-gray-300"
+          className="text-xl hidden sm:flex font-bold text-gray-800 dark:text-gray-300"
         >
           Hashnode
         </Link>
       </div>
-      <div className="flex items-center gap-10">
+      <div className="hidden md:flex items-center gap-10">
         <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
           My Feed
         </h1>

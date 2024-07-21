@@ -50,7 +50,7 @@ const ProfileComplete = ({ user }: { user: User }) => {
       <header className="flex w-full gap-2 justify-center items-center h-16 bg-zinc-100 dark:bg-gray-950">
         <FaHashnode size={32} className="fill-blue-600" />
         <Link href={"/blogs"} className="text-3xl font-bold">
-          hashnode
+          hashnode {user?.username}
         </Link>
       </header>
       <div className="text-center mt-12 ">
