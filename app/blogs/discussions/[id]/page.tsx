@@ -5,9 +5,11 @@ import UserId from "@/app/_component/UserId";
 import { BookMark, PostById } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
 import { PostWithAll } from "@/lib/type";
+import { FolderLock } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import React from "react";
+import { IoPersonAddOutline } from "react-icons/io5";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
@@ -63,7 +65,29 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
             <Discussion />
           </div>
         </div>
-        <div className="border w-1/5 h-fit rounded-lg">s</div>
+        <div className="border flex items-center justify-center w-1/5 h-fit rounded-lg">
+          <div className="flex flex-col gap-y-2 mx-auto py-5">
+            <div>
+              <Image
+                src={post.user.image!}
+                alt=""
+                height={90}
+                width={90}
+                className="rounded-full"
+              />
+            </div>
+            <h1 className="font-semibold text-slate-800 dark:text-slate-200">
+              {post.user.name}
+            </h1>
+            <h1 className="text-center text-sm">{post.user.bio}</h1>
+            <div className="flex justify-between items-center ">
+              <button className="flex items-center border px-5 py-1 gap-2 rounded-full text-blue-600 border-blue-600">
+                <IoPersonAddOutline />
+                Follow
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

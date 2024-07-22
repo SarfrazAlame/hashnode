@@ -5,7 +5,8 @@ import React from "react";
 const Discussion = async () => {
   const { comments } = await CommentUser();
   return (
-    <div className="flex flex-col gap-y-8">
+    <div className="flex flex-col gap-y-6">
+      <p className="font-bold text-slate-800 dark:text-gray-200">{comments?.length} comments</p>
       {comments?.map((comment) => (
         <div key={comment.id} className="flex gap-2">
          <div>

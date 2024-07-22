@@ -27,15 +27,24 @@ const Header = async () => {
         </Link>
       </div>
       <div className="hidden md:flex items-center gap-10">
-        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        <Link
+          href={"/blogs"}
+          className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full"
+        >
           My Feed
-        </h1>
-        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        </Link>
+        <Link
+          href={"/blogs"}
+          className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full"
+        >
           Discussions
-        </h1>
-        <h1 className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full">
+        </Link>
+        <Link
+          href={"/blogs"}
+          className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full"
+        >
           Explore
-        </h1>
+        </Link>
       </div>
       <div className="flex items-center gap-5">
         <SearchIcon

@@ -17,8 +17,8 @@ import { BookMarkPost } from "@/auth/action";
 const Post = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post.user.username!);
   const ownerUser = await getServerSession(authOptions);
-  const followUser = await userFollow(post.user.id,ownerUser?.user.id!)
-  const bookmark = await BookMark(post.id,ownerUser?.user.id!)
+  const followUser = await userFollow(post.user.id, ownerUser?.user.id!);
+  const bookmark = await BookMark(post.id, ownerUser?.user.id!);
   return (
     <div className="flex flex-col gap-y-2 border rounded-xl p-5">
       <div className="flex w-full justify-between">
@@ -46,8 +46,13 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                         className="rounded-full"
                       />
                       {ownerUser?.user.id !== user?.id ? (
-                        // @ts-ignore
-                        <Follow user={user} post={post} followUser={followUser}/>
+                        <Follow
+                          // @ts-ignore
+                          user={user}
+                          post={post}
+                          // @ts-ignore
+                          followUser={followUser}
+                        />
                       ) : null}
                     </div>
                     <div className="flex flex-col gap-y-1">
@@ -69,7 +74,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
               </HoverCard>
             </div>
             <Link
-              href={`/blogs/${post.user.username}`}
+              href={`/blog/${post.user.username}`}
               className="flex flex-col"
             >
               <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
@@ -78,7 +83,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
               <p className="text-[12px]">{post.user.username}</p>
             </Link>
           </div>
-          <Link href={`/blogs`}>
+          <Link href={`/blog/${post.title}`}>
             <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
               {post.title}
             </p>
@@ -87,7 +92,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
             </p>
           </Link>
         </div>
-        <Link href={`/blogs`}>
+        <Link href={`/blogs/${post.title}`}>
           <Image
             src={post.imageUrl!}
             alt=""
@@ -97,7 +102,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
           />
         </Link>
       </div>
-      <LikeComment post={post} bookmark={bookmark}/>
+      <LikeComment post={post} bookmark={bookmark} />
     </div>
   );
 };
