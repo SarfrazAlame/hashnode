@@ -1,6 +1,7 @@
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { Post, User } from "@prisma/client";
 import prisma from "@/lib/prisma";
+import UserId from "@/app/_component/UserId";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -19,34 +20,34 @@ export const UserDetails = async (id: string, email: string) => {
     }
 }
 
-export const UserProfile = async (username: string)=> {
+export const UserProfile = async (username: string) => {
     noStore()
     try {
         const user = await prisma.user.findUnique({
             where: {
                 username
             },
-            include:{
-                comments:{
-                    include:{
-                        user:true
+            include: {
+                comments: {
+                    include: {
+                        user: true
                     },
-                    orderBy:{
-                        createdAt:"desc"
+                    orderBy: {
+                        createdAt: "desc"
                     }
                 },
-                likes:{
-                    include:{
-                        user:true
+                likes: {
+                    include: {
+                        user: true
                     }
                 },
-                saves:{
-                    include:{
-                        user:true
+                saves: {
+                    include: {
+                        user: true
                     }
                 },
-                followers:true,
-                following:true
+                followers: true,
+                following: true
             }
         })
 
@@ -93,6 +94,26 @@ export const BlogPost = async () => {
         console.log(error)
         return {
             message: "can't fetch"
+        }
+    }
+}
+
+export const userFollow = async (id: string) => {
+    const userId = await UserId()
+    try {
+        const follow = await prisma.follows.findUnique({
+            where: {
+                followerId_followingId: {
+                    followerId: userId,
+                    followingId: id
+                }
+            }
+        })
+        revalidatePath('/blogs')
+        return follow
+    } catch (error) {
+        return {
+            message: "cann't get follower"
         }
     }
 }

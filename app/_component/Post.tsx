@@ -8,13 +8,17 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { Plus } from "lucide-react";
-import { UserProfile } from "@/auth/Recieve";
+import { userFollow, UserProfile } from "@/auth/Recieve";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import Follow from "./Follow";
 
 const Post = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post.user.username!);
+  const ownerUser = await getServerSession(authOptions);
+  const followUser = await userFollow(post.user.id)
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 border rounded-xl p-5">
       <div className="flex w-full justify-between">
         <div className="flex w-2/3 flex-col gap-y-3">
           <div className="flex gap-2">
@@ -39,9 +43,10 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                         height={70}
                         className="rounded-full"
                       />
-                      <button className="py-1 px-2 rounded-full bg-blue-600 text-gray-100 text-sm flex items-center gap-2">
-                        <Plus size={20} /> Follow
-                      </button>
+                      {ownerUser?.user.id !== user?.id ? (
+                        // @ts-ignore
+                        <Follow user={user} post={post} followUser={followUser}/>
+                      ) : null}
                     </div>
                     <div className="flex flex-col gap-y-1">
                       <p className="font-bold text-lg">{post.user.name}</p>
@@ -49,9 +54,13 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                         {post.user.tagline}
                       </p>
                     </div>
-                    <div>
-                      <p>{user?.followers.length} followers</p>
-                      <p>{user?.following.length} followers</p>
+                    <div className="flex gap-3">
+                      <p className="text-[12px]">
+                        {user?.followers.length} followers
+                      </p>
+                      <p className="text-[12px]">
+                        {user?.following.length} followers
+                      </p>
                     </div>
                   </div>
                 </HoverCardContent>

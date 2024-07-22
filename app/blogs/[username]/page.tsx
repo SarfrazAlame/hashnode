@@ -1,5 +1,7 @@
 import { UserProfile } from "@/auth/Recieve";
-import { Pen, PenIcon } from "lucide-react";
+import { authOptions } from "@/lib/auth";
+import { Pen, PenIcon, Plus } from "lucide-react";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -19,6 +21,7 @@ const page = async ({
   params: { username: string };
 }) => {
   const user = await UserProfile(username);
+  const ownerUser = await getServerSession(authOptions);
 
   return (
     <div className="w-full h-screen flex ">
@@ -40,53 +43,59 @@ const page = async ({
             </div>
           </div>
           <div className="mx-32 sm:mx-0 -mt-6 sm:">
-            <Link
-              href={`/blogs/settings/${user?.username}`}
-              className="flex border cursor-pointer px-4 py-2 rounded-full gap-1 items-center bg-blue-600 text-gray-100 dark:text-gray-100"
-            >
-              <PenIcon size={16} />
-              Edit
-            </Link>
+            {user?.id === ownerUser?.user.id ? (
+              <Link
+                href={`/blogs/settings/${user?.username}`}
+                className="flex border cursor-pointer px-4 py-2 rounded-full gap-1 items-center bg-blue-600 text-gray-100 dark:text-gray-100"
+              >
+                <PenIcon size={16} />
+                Edit
+              </Link>
+            ) : (
+              <button className="flex px-3 py-2 gap-2 rounded-full text-[15px] items-center bg-blue-500 text-gray-50">
+                <Plus size={18} />
+                Follow
+              </button>
+            )}
           </div>
         </div>
 
         <div className="my-6 border flex items-center gap-8 justify-center h-20 rounded-md">
           <div className="flex items-center gap-4 justify-center">
             <Link
-              href={""}
+              href={`${user?.linkedin}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               <FaLinkedin className="text-gray-500 dark:text-gray-400" />
             </Link>
             <Link
-              href={""}
+              href={`${user?.stackoverflow}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               <FaStackOverflow className="text-gray-500 dark:text-gray-400" />
             </Link>
             <Link
-              href={""}
+              href={`${user?.github}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
-              {" "}
               <FaGithub className="text-gray-500 dark:text-gray-400" />
             </Link>
             <Link
-              href={""}
+              href={`${user?.website}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               {" "}
               <TbWorld className="text-gray-500 dark:text-gray-400" />
             </Link>
             <Link
-              href={""}
+              href={`${user?.facebook}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               {" "}
               <FaFacebook className="text-gray-500 dark:text-gray-400" />
             </Link>
             <Link
-              href={""}
+              href={`${user?.instagram}`}
               className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800"
             >
               {" "}

@@ -6,7 +6,7 @@ import Post from "../_component/Post";
 
 const page = async () => {
   const { posts } = await BlogPost();
-  
+
   return (
     <main className="flex w-full justify-center items-center">
       <div className="flex w-7/12 gap-8 my-8">
@@ -31,7 +31,7 @@ const page = async () => {
               </p>
             </div>
           </div>
-          <div className="border rounded-lg p-5">
+          <div className="flex flex-col gap-y-5">
             {posts?.map((post) => (
               // @ts-ignore
               <Post key={post.id} post={post} />

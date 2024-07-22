@@ -76,9 +76,54 @@ export const PostBlog = async (value: z.infer<typeof formSchems>) => {
         revalidatePath('/blogs')
         redirect('/blogs')
     } catch (error) {
-        console.log(error)
         return {
             message: "Something went wrong"
+        }
+    }
+}
+
+export const FollowUser = async (id: string) => {
+    const userId = await UserId()
+    const FollowUser = await prisma.follows.findUnique({
+        where: {
+            followerId_followingId: {
+                followerId: userId,
+                followingId: id
+            }
+        }
+    })
+    if (FollowUser) {
+        try {
+            await prisma.follows.delete({
+                where: {
+                    followerId_followingId: {
+                        followerId: userId,
+                        followingId: id
+                    }
+                }
+            })
+            revalidatePath('/blogs')
+            return {
+                message: "Unfollow user"
+            }
+        } catch (error) {
+            return {
+                message: "unable to unfollow"
+            }
+        }
+    }
+    try {
+        await prisma.follows.create({
+            data: {
+                followerId: userId,
+                followingId: id
+            }
+        })
+        revalidatePath('/blogs')
+    } catch (error) {
+        console.log(error)
+        return {
+            message: "unable to follow"
         }
     }
 }
