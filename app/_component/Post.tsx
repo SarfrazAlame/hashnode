@@ -52,7 +52,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                           post={post}
                           // @ts-ignore
                           followUser={followUser}
-                          className="border-blue-600 text-blue-500"
+                          className="border-blue-600 text-blue-500 py-1 px-2 "
                         />
                       ) : null}
                     </div>
