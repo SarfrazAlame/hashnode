@@ -180,10 +180,10 @@ export const BookMarkPost = async (id: string) => {
 export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSchema>) => {
     const userId = await UserId()
     const validatedField = DiscussionsSchema.safeParse(value)
-    if(!validatedField.success){
+    if (!validatedField.success) {
         throw new Error("Write comment")
     }
-    const {body} = validatedField.data
+    const { body } = validatedField.data
     try {
         await prisma.comment.create({
             data: {
@@ -196,6 +196,23 @@ export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSc
     } catch (error) {
         return {
             message: "comment failed"
+        }
+    }
+}
+
+export const LikePost = async (id: string) => {
+    const userId = await UserId()
+    try {
+        await prisma.like.create({
+            data: {
+                postId: id,
+                userId
+            }
+        })
+        revalidatePath('blog')
+    } catch (error) {
+        return {
+            message: "can't like"
         }
     }
 }

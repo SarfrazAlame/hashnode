@@ -6,15 +6,15 @@ export type SaveWithUser = Save & { user: User }
 
 export type PostWithAll = Post & {
     user: User,
-    like: LikeWithUser[],
-    comment: CommnetWithUser[],
-    save: SaveWithUser[],
+    likes: LikeWithUser[],
+    comments: CommnetWithUser[],
+    saves: SaveWithUser[],
 }
 
 export type UserWithAll = User & {
-    like:LikeWithUser[],
-    comment:CommnetWithUser[],
-    save:SaveWithUser[]
-    follower:Follows[],
-    following:Follows[]
+    like: LikeWithUser[],
+    comment: CommnetWithUser[],
+    save: SaveWithUser[]
+    follower: Follows[],
+    following: Follows[]
 }

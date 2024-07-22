@@ -1,6 +1,7 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
 import { PostWithAll } from "@/lib/type";
+import UserId from "@/app/_component/UserId";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -182,6 +183,23 @@ export const CommentUser = async () => {
     } catch (error) {
         return {
             message: "cann't get comment"
+        }
+    }
+}
+
+export const likeUser = async(id:string)=>{
+    const userId = await UserId()
+    try {
+        const like = await prisma.like.findFirst({
+            where:{
+                postId:id,
+                userId
+            }
+        })
+        return like
+    } catch (error) {
+        return {
+            message:"like user"
         }
     }
 }

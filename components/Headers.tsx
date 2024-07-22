@@ -17,7 +17,7 @@ const Headers = async ({ post }: { post: PostWithAll }) => {
   const style = "text-gray-200";
 
   return (
-    <div className="h-20 flex items-center justify-around w-full bg-blue-500">
+    <div className="h-20 sticky top-0 flex items-center justify-around w-full bg-blue-500">
       <div className="flex items-center gap-2">
         <Link href={"/blogs"}>
           <GoChevronLeft size={28} className="mx-4 text-slate-200" />
