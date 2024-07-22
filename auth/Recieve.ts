@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
-import prisma from "@/lib/prisma"
 import { Post, User } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -19,12 +19,34 @@ export const UserDetails = async (id: string, email: string) => {
     }
 }
 
-export const UserProfile = async (username: string): Promise<User | null> => {
+export const UserProfile = async (username: string)=> {
     noStore()
     try {
         const user = await prisma.user.findUnique({
             where: {
                 username
+            },
+            include:{
+                comments:{
+                    include:{
+                        user:true
+                    },
+                    orderBy:{
+                        createdAt:"desc"
+                    }
+                },
+                likes:{
+                    include:{
+                        user:true
+                    }
+                },
+                saves:{
+                    include:{
+                        user:true
+                    }
+                },
+                followers:true,
+                following:true
             }
         })
 
@@ -50,6 +72,9 @@ export const BlogPost = async () => {
                 comments: {
                     include: {
                         user: true
+                    },
+                    orderBy: {
+                        createdAt: 'desc'
                     }
                 },
                 saves: {
@@ -58,6 +83,9 @@ export const BlogPost = async () => {
                     }
                 },
                 user: true
+            },
+            orderBy: {
+                createdAt: 'desc'
             }
         })
         return { posts }

@@ -74,9 +74,21 @@ model User {
   likes         Like[]
   saves         Save[]
   comments      Comment[]
+  followers     Follows[] @relation("following")
+  following     Follows[] @relation("follower")
+  sessions      Session[]
+  accounts      Account[]
+}
 
-  sessions Session[]
-  accounts Account[]
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }
 
 model Post {

@@ -1,4 +1,4 @@
-import { BlogPost } from "@/auth/Recieve";
+import { BlogPost, UserProfile } from "@/auth/Recieve";
 import { Medal } from "lucide-react";
 import { LiaPencilAltSolid } from "react-icons/lia";
 import { MdPeople } from "react-icons/md";
@@ -6,6 +6,7 @@ import Post from "../_component/Post";
 
 const page = async () => {
   const { posts } = await BlogPost();
+  
   return (
     <main className="flex w-full justify-center items-center">
       <div className="flex w-7/12 gap-8 my-8">
