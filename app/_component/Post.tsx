@@ -17,8 +17,8 @@ import { BookMarkPost } from "@/auth/action";
 const Post = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post.user.username!);
   const ownerUser = await getServerSession(authOptions);
-  const followUser = await userFollow(post.user.id)
-  const bookmark = await BookMark(post.id)
+  const followUser = await userFollow(post.user.id,ownerUser?.user.id!)
+  const bookmark = await BookMark(post.id,ownerUser?.user.id!)
   return (
     <div className="flex flex-col gap-y-2 border rounded-xl p-5">
       <div className="flex w-full justify-between">

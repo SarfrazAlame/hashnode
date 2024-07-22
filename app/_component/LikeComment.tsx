@@ -9,6 +9,7 @@ import {
 import { PostWithAll } from "@/lib/type";
 import { Save } from "@prisma/client";
 import { Bookmark } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { RiBookmarkFill } from "react-icons/ri";
@@ -24,10 +25,15 @@ const LikeComment = ({
     <div>
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
-          <FaRegComments className=" text-gray-800 dark:text-slate-300" />
-          <p className="text-[13px] text-gray-800 dark:text-slate-300">
-            Discuss
-          </p>
+          <Link
+            href={`/blogs/discussions/${post.id}`}
+            className="flex gap-2 items-center"
+          >
+            <FaRegComments className=" text-gray-800 dark:text-slate-300" />
+            <p className="text-[13px] text-gray-800 dark:text-slate-300">
+              Discuss
+            </p>
+          </Link>
           <p>.</p>
           {post.like?.length > 0 && <p>{post.like?.length} </p>}
         </div>
@@ -48,7 +54,6 @@ const LikeComment = ({
                   </>
                 ) : (
                   <>
-                    {" "}
                     <Bookmark
                       onClick={() => BookMarkPost(post.id)}
                       size={20}

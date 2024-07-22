@@ -26,3 +26,7 @@ export const UserSchema = z.object({
     linkedin: z.string().optional(),
     youtube: z.string().optional(),
 })
+
+export const DiscussionsSchema = z.object({
+    body: z.string().min(1)
+})

@@ -1,7 +1,6 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
-import { Post, User } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import UserId from "@/app/_component/UserId";
+import { PostWithAll } from "@/lib/type";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -98,8 +97,7 @@ export const BlogPost = async () => {
     }
 }
 
-export const userFollow = async (id: string) => {
-    const userId = await UserId()
+export const userFollow = async (id: string, userId: string) => {
     try {
         const follow = await prisma.follows.findUnique({
             where: {
@@ -118,13 +116,12 @@ export const userFollow = async (id: string) => {
     }
 }
 
-export const BookMark = async(id:string)=>{
-    const userId = await UserId()
+export const BookMark = async (id: string, userId: string) => {
     try {
         const bookmark = await prisma.save.findUnique({
-            where:{
-                userId_postId:{
-                    postId:id,
+            where: {
+                userId_postId: {
+                    postId: id,
                     userId
                 }
             }
@@ -133,7 +130,42 @@ export const BookMark = async(id:string)=>{
         return bookmark
     } catch (error) {
         return {
-            message:"failed to get bookmark"
+            message: "failed to get bookmark"
+        }
+    }
+}
+
+export async function PostById(id: string) {
+    noStore()
+
+    try {
+        const post = await prisma.post.findUnique({
+            where: {
+                id
+            },
+            include: {
+                comments: {
+                    include: {
+                        user: true
+                    },
+                    orderBy: {
+                        createdAt: "desc"
+                    }
+                },
+                likes: {
+                    include: {
+                        user: true
+                    }
+                },
+                saves: true,
+                user: true
+            }
+        })
+        
+        return post
+    } catch (error) {
+        return {
+            message: "failed to get post"
         }
     }
 }

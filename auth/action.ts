@@ -1,5 +1,5 @@
 'use server'
-import { formSchems, UserSchema } from "@/lib/Schema";
+import { DiscussionsSchema, formSchems, UserSchema } from "@/lib/Schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
@@ -173,6 +173,27 @@ export const BookMarkPost = async (id: string) => {
     } catch (error) {
         return {
             message: "something went wrong"
+        }
+    }
+}
+
+export const AddComment = async (id: string, userId: string, value: z.infer<typeof DiscussionsSchema>) => {
+    const validatedField = DiscussionsSchema.safeParse(value)
+    if(!validatedField.success){
+        throw new Error("Write comment")
+    }
+    const {body} = validatedField.data
+    try {
+        await prisma.comment.create({
+            data: {
+                body,
+                postId: id,
+                userId
+            }
+        })
+    } catch (error) {
+        return {
+            message: "comment failed"
         }
     }
 }
