@@ -1,14 +1,20 @@
 import PostOptions from "@/app/_component/PostOptions";
-import { likeUser, PostById } from "@/auth/Recieve";
+import { CommentUser, likeUser, PostById, UserDetails } from "@/auth/Recieve";
 import Headers from "@/components/Headers";
+import UserBlog from "@/components/UserBlog";
+import { authOptions } from "@/lib/auth";
 import { PostWithAll } from "@/lib/type";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import React from "react";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
   const post: PostWithAll = await PostById(id);
-  const like = await likeUser(post.id)
+  const like = await likeUser(post.id);
+  const ownerUser = await getServerSession(authOptions);
+  const user = await UserDetails(ownerUser?.user.id!, ownerUser?.user.email!);
+  const { comments } = await CommentUser();
   return (
     <div className="h-screen">
       {/* @ts-ignore */}
@@ -28,7 +34,17 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
         </p>
         <p className="w-5/12 whitespace-pre-wrap">{post.story}</p>
         <div>
-          <PostOptions post={post} like={like}/>
+          <PostOptions
+            post={post}
+            like={like}
+            // @ts-ignore
+            user={user}
+            // @ts-ignore
+            comments={comments}
+          />
+        </div>
+        <div className="w-5/12 ">
+          <UserBlog />
         </div>
       </div>
     </div>
