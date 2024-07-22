@@ -9,12 +9,12 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 
 const Follow = ({
   user,
-  post,
   followUser,
+  className,
 }: {
   user: UserWithAll;
-  post: PostWithAll;
   followUser: Follows;
+  className: string;
 }) => {
   return (
     <div>
@@ -22,16 +22,16 @@ const Follow = ({
         <>
           <button
             onClick={() => FollowUser(user?.id)}
-            className="py-1 px-2 rounded-full border border-blue-600 text-blue-500 text-[13px] flex items-center gap-1"
+            className={`${className} py-1 px-2 rounded-full border text-[13px] flex items-center gap-1`}
           >
-            <IoCheckmarkOutline  size={16} /> Following
+            <IoCheckmarkOutline size={16} /> Following
           </button>
         </>
       ) : (
         <>
           <button
             onClick={() => FollowUser(user?.id)}
-            className="py-1 px-2 rounded-full bg-blue-600 text-gray-100 text-sm flex items-center gap-2"
+            className={`${className} py-1 px-2 rounded-full bg-blue-600 text-gray-100 text-sm flex items-center gap-2`}
           >
             <Plus size={20} /> Follow
           </button>

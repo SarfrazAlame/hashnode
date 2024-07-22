@@ -52,6 +52,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                           post={post}
                           // @ts-ignore
                           followUser={followUser}
+                          className="border-blue-600 text-blue-500"
                         />
                       ) : null}
                     </div>
@@ -83,7 +84,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
               <p className="text-[12px]">{post.user.username}</p>
             </Link>
           </div>
-          <Link href={`/blog/${post.title}`}>
+          <Link href={`/blog/${post.id}`}>
             <p className="text-lg font-bold text-slate-700 dark:text-slate-200">
               {post.title}
             </p>

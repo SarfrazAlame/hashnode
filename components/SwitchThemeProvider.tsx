@@ -5,7 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 
-const SwitchThemeProvider = () => {
+const SwitchThemeProvider = ({style}:{style:string}) => {
   const [mounted, setMount] = useState(false);
   const { setTheme, resolvedTheme } = useTheme();
 
@@ -29,7 +29,7 @@ const SwitchThemeProvider = () => {
   }
 
   if (resolvedTheme === "light") {
-    return <FiMoon size={24} onClick={() => setTheme("dark")} className="cursor-pointer text-gray-500" />;
+    return <FiMoon size={24} onClick={() => setTheme("dark")}  className={`cursor-pointer ${style}`}/>;
   }
 };
 
