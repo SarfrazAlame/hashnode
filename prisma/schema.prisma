@@ -73,24 +73,43 @@ model User {
   posts         Post[]
   likes         Like[]
   saves         Save[]
+  comments      Comment[]
 
   sessions Session[]
   accounts Account[]
 }
 
 model Post {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
   story     String
   imageUrl  String?
   category  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Like      Like[]
-  Save      Save[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  likes     Like[]
+  saves     Save[]
+  comments  Comment[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id   String @id @default(uuid())
+  body String
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([postId])
 }
 
 model Like {
