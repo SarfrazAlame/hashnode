@@ -1,3 +1,5 @@
+"use client";
+import { BookMarkPost } from "@/auth/action";
 import {
   Tooltip,
   TooltipContent,
@@ -5,11 +7,19 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PostWithAll } from "@/lib/type";
+import { Save } from "@prisma/client";
 import { Bookmark } from "lucide-react";
 import React from "react";
-import { FaBookmark, FaRegComments } from "react-icons/fa6";
+import { FaRegComments } from "react-icons/fa6";
+import { RiBookmarkFill } from "react-icons/ri";
 
-const LikeComment = ({ post }: { post: PostWithAll }) => {
+const LikeComment = ({
+  post,
+  bookmark,
+}: {
+  post: PostWithAll;
+  bookmark: Save | { message: string } | null;
+}) => {
   return (
     <div>
       <div className="flex justify-between">
@@ -28,10 +38,24 @@ const LikeComment = ({ post }: { post: PostWithAll }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                <Bookmark
-                  size={20}
-                  className="text-slate-600 dark:text-slate-400 cursor-pointer"
-                />
+                {bookmark ? (
+                  <>
+                    <RiBookmarkFill
+                      onClick={() => BookMarkPost(post.id)}
+                      size={20}
+                      className="text-slate-600 dark:text-slate-400 cursor-pointer"
+                    />
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <Bookmark
+                      onClick={() => BookMarkPost(post.id)}
+                      size={20}
+                      className="text-slate-600 dark:text-slate-400 cursor-pointer"
+                    />
+                  </>
+                )}
               </TooltipTrigger>
               <TooltipContent>
                 <p className="text-[11px]">Save for later</p>

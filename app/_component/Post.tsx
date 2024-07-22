@@ -8,15 +8,17 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { userFollow, UserProfile } from "@/auth/Recieve";
+import { BookMark, userFollow, UserProfile } from "@/auth/Recieve";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Follow from "./Follow";
+import { BookMarkPost } from "@/auth/action";
 
 const Post = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post.user.username!);
   const ownerUser = await getServerSession(authOptions);
   const followUser = await userFollow(post.user.id)
+  const bookmark = await BookMark(post.id)
   return (
     <div className="flex flex-col gap-y-2 border rounded-xl p-5">
       <div className="flex w-full justify-between">
@@ -95,7 +97,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
           />
         </Link>
       </div>
-      <LikeComment post={post} />
+      <LikeComment post={post} bookmark={bookmark}/>
     </div>
   );
 };

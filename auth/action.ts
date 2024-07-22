@@ -127,3 +127,52 @@ export const FollowUser = async (id: string) => {
         }
     }
 }
+
+export const BookMarkPost = async (id: string) => {
+    const userId = await UserId()
+
+    const bookmark = await prisma.save.findUnique({
+        where: {
+            userId_postId: {
+                userId,
+                postId: id
+            }
+        }
+    })
+    if (bookmark) {
+        try {
+            await prisma.save.delete({
+                where: {
+                    userId_postId: {
+                        userId,
+                        postId: id
+                    }
+                }
+            })
+            revalidatePath("/blogs")
+            return {
+                message: "deleted post"
+            }
+        } catch (error) {
+            return {
+                message: "delete savepost"
+            }
+        }
+    }
+    try {
+        await prisma.save.create({
+            data: {
+                postId: id,
+                userId
+            }
+        })
+        revalidatePath('/blogs')
+        return {
+            message: "save post"
+        }
+    } catch (error) {
+        return {
+            message: "something went wrong"
+        }
+    }
+}

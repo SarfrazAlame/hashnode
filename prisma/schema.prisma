@@ -145,5 +145,6 @@ model Save {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
 
+  @@unique([userId, postId])
   @@index([userId])
 }

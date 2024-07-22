@@ -117,3 +117,23 @@ export const userFollow = async (id: string) => {
         }
     }
 }
+
+export const BookMark = async(id:string)=>{
+    const userId = await UserId()
+    try {
+        const bookmark = await prisma.save.findUnique({
+            where:{
+                userId_postId:{
+                    postId:id,
+                    userId
+                }
+            }
+        })
+        revalidatePath('/blogs')
+        return bookmark
+    } catch (error) {
+        return {
+            message:"failed to get bookmark"
+        }
+    }
+}
