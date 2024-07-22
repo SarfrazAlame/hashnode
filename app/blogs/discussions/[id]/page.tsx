@@ -1,3 +1,4 @@
+import Discussion from "@/app/_component/Discussion";
 import Discussions from "@/app/_component/Discussions";
 import LikeComment from "@/app/_component/LikeComment";
 import UserId from "@/app/_component/UserId";
@@ -13,7 +14,8 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const post = (await PostById(id)) as PostWithAll;
   const ownerUser = await getServerSession(authOptions);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
-  const userId = await UserId()
+  const userId = await UserId();
+  const user = ownerUser?.user;
   return (
     <div className="w-full flex justify-center items-center">
       <div className="flex w-2/3 my-8 gap-10 justify-center">
@@ -54,7 +56,11 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
             <LikeComment post={post} bookmark={bookmark} />
           </div>
           <div>
-            <Discussions post={post} userId={userId} />
+            {/* @ts-ignore */}
+            <Discussions post={post} userId={userId} user={user} />
+          </div>
+          <div>
+            <Discussion />
           </div>
         </div>
         <div className="border w-1/5 h-fit rounded-lg">s</div>

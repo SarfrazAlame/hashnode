@@ -177,7 +177,8 @@ export const BookMarkPost = async (id: string) => {
     }
 }
 
-export const AddComment = async (id: string, userId: string, value: z.infer<typeof DiscussionsSchema>) => {
+export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSchema>) => {
+    const userId = await UserId()
     const validatedField = DiscussionsSchema.safeParse(value)
     if(!validatedField.success){
         throw new Error("Write comment")
@@ -191,6 +192,7 @@ export const AddComment = async (id: string, userId: string, value: z.infer<type
                 userId
             }
         })
+        revalidatePath('/blogs/discussions')
     } catch (error) {
         return {
             message: "comment failed"

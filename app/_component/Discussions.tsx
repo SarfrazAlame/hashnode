@@ -16,9 +16,11 @@ import { z } from "zod";
 const Discussions = ({
   post,
   userId,
+  user,
 }: {
   post: PostWithAll;
   userId: string;
+  user: User;
 }) => {
   const form = useForm<z.infer<typeof DiscussionsSchema>>({
     resolver: zodResolver(DiscussionsSchema),
@@ -28,7 +30,7 @@ const Discussions = ({
   });
   const handlerComment = async (value: z.infer<typeof DiscussionsSchema>) => {
     try {
-      await AddComment(post.id, userId, value);
+      await AddComment(post.id, value);
       toast.success("comment added");
     } catch (error) {
       toast.error("something went wrong");
@@ -38,7 +40,7 @@ const Discussions = ({
     <div>
       <Form {...form}>
         <form
-          onSubmit={() => form.handleSubmit(handlerComment)}
+          onSubmit={form.handleSubmit(handlerComment)}
           className="w-full flex flex-col"
         >
           <FormField
@@ -46,9 +48,9 @@ const Discussions = ({
             name="body"
             render={({ field }) => (
               <FormItem>
-                <div className="absolute p-4">
+                <div className="absolute px-4 py-6">
                   <Image
-                    src={post.user.image!}
+                    src={user.image!}
                     alt=""
                     height={25}
                     width={25}
@@ -63,9 +65,12 @@ const Discussions = ({
               </FormItem>
             )}
           />
-          <div className="w-full flex">
-            <button className="border mt-3 text-end w-fit">comment</button>
-          </div>
+          <button
+            type="submit"
+            className="border mt-3 w-fit px-3 py-0.5 rounded-full bg-blue-600 text-slate-100"
+          >
+            comment
+          </button>
         </form>
       </Form>
     </div>

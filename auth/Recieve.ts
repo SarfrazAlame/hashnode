@@ -169,3 +169,19 @@ export async function PostById(id: string) {
         }
     }
 }
+
+export const CommentUser = async()=>{
+    try {
+        const comments = await prisma.comment.findMany({
+            include:{
+               user:true 
+            }
+        })
+        revalidatePath('/blogs/discussoions')
+        return {comments}
+    } catch (error) {
+        return {
+            message:"cann't get comment"
+        }
+    }
+}
