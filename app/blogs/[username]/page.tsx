@@ -1,6 +1,8 @@
-import { UserProfile } from "@/auth/Recieve";
+import FollowIcon from "@/app/_component/FollowIcon";
+import UserId from "@/app/_component/UserId";
+import { userFollow, UserProfile } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
-import { Pen, PenIcon, Plus } from "lucide-react";
+import { PenIcon, Plus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,8 +22,10 @@ const page = async ({
 }: {
   params: { username: string };
 }) => {
-  const user = await UserProfile(username);
+  const user = await UserProfile(username) ;
   const ownerUser = await getServerSession(authOptions);
+  const userId = await UserId()
+  const follow = await userFollow(user?.id!,userId)
 
   return (
     <div className="w-full h-screen flex ">
@@ -52,10 +56,8 @@ const page = async ({
                 Edit
               </Link>
             ) : (
-              <button className="flex px-3 py-2 gap-2 rounded-full text-[15px] items-center bg-blue-500 text-gray-50">
-                <Plus size={18} />
-                Follow
-              </button>
+              // @ts-ignore
+             <FollowIcon user={user} follow={follow}/>
             )}
           </div>
         </div>

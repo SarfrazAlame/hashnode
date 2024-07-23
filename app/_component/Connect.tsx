@@ -1,0 +1,36 @@
+"use client";
+import { FollowUser } from "@/auth/action";
+import { Follows, User } from "@prisma/client";
+import React from "react";
+
+const Connect = ({
+  user,
+  userId,
+  follow,
+}: {
+  user: User;
+  userId: string;
+  follow: Follows | { message: string } | null;
+}) => {
+  return (
+    <div>
+      {follow ? (
+        <button
+          onClick={() => FollowUser(user.id)}
+          className="px-5 border py-2 rounded-full border-blue-500 text-blue-500"
+        >
+          following
+        </button>
+      ) : (
+        <button
+          onClick={() => FollowUser(user.id)}
+          className="px-5 border py-2 rounded-full border-blue-500 text-blue-500"
+        >
+          Follow
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default Connect;

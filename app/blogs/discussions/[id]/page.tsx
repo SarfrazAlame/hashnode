@@ -1,15 +1,15 @@
+import Connect from "@/app/_component/Connect";
 import Discussion from "@/app/_component/Discussion";
 import Discussions from "@/app/_component/Discussions";
 import LikeComment from "@/app/_component/LikeComment";
 import UserId from "@/app/_component/UserId";
-import { BookMark, PostById } from "@/auth/Recieve";
+import { FollowUser } from "@/auth/action";
+import { BookMark, PostById, userFollow } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
 import { PostWithAll } from "@/lib/type";
-import { FolderLock } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import React from "react";
-import { IoPersonAddOutline } from "react-icons/io5";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
@@ -18,6 +18,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
   const userId = await UserId();
   const user = ownerUser?.user;
+  const follow = await userFollow(post.user.id, userId);
   return (
     <div className="w-full flex justify-center items-center">
       <div className="flex w-2/3 my-8 gap-10 justify-center">
@@ -80,11 +81,9 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
               {post.user.name}
             </h1>
             <h1 className="text-center text-sm">{post.user.bio}</h1>
-            <div className="flex justify-between items-center ">
-              <button className="flex items-center border px-5 py-1 gap-2 rounded-full text-blue-600 border-blue-600">
-                <IoPersonAddOutline />
-                Follow
-              </button>
+            <div className="flex justify-between items-center w-full">
+              {/* @ts-ignore */}
+              <Connect user={post.user} userId={userId} follow={follow} />
             </div>
           </div>
         </div>
