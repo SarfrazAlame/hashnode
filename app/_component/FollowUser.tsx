@@ -1,4 +1,3 @@
-import React from "react";
 import UserId from "./UserId";
 import Fbutton from "./Fbutton";
 import { userFollow } from "@/auth/Recieve";
