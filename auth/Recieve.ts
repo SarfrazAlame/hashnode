@@ -203,3 +203,14 @@ export const likeUser = async(id:string)=>{
         }
     }
 }
+
+export const AllUser = async()=>{
+    try {
+        const users = await prisma.user.findMany({})
+        return {users}
+    } catch (error) {
+        return {
+            message:"failed to get user"
+        }
+    }
+}

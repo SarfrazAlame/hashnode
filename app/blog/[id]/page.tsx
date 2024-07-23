@@ -18,6 +18,7 @@ import React from "react";
 import { HiOutlineBookOpen } from "react-icons/hi2";
 import { format } from "date-fns";
 import DateTime from "@/app/_component/DateTime";
+import Link from "next/link";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
@@ -60,16 +61,21 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
           {post?.title}
         </p>
         <div className="flex items-center gap-3 mb-7">
-          <Image
-            src={post.user.image!}
-            alt=""
-            width={45}
-            height={45}
-            className="rounded-full"
-          />
-          <p className="text-xl font-semibold text-slate-700 dark:text-slate-200">
-            {post.user.name}
-          </p>
+          <Link
+            href={`/blogs/${post.user.username}`}
+            className="flex items-center gap-3 mb-7"
+          >
+            <Image
+              src={post.user.image!}
+              alt=""
+              width={45}
+              height={45}
+              className="rounded-full"
+            />
+            <p className="text-xl font-semibold text-slate-700 dark:text-slate-200">
+              {post.user.name}
+            </p>
+          </Link>
           <span className="-mt-2">.</span>
           <HiOutlineBookOpen
             size={24}
@@ -80,7 +86,6 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
               {monthNames[post.createdAt.getMonth()]} {post.createdAt.getDate()}
             </p>
           </div>
-          {/* <DateTime createAt={post.createdAt}/> */}
           <span className="-mt-2">.</span>
           <p className="text-slate-600 dark:text-slate-300">4 min read</p>
         </div>
