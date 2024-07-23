@@ -1,9 +1,11 @@
-import { CommentUser } from "@/auth/Recieve";
+import { CommentById, CommentUser } from "@/auth/Recieve";
+import { PostWithAll } from "@/lib/type";
 import Image from "next/image";
 import React from "react";
 
-const Discussion = async () => {
-  const { comments } = await CommentUser();
+const Discussion = async ({post}:{post:PostWithAll}) => {
+  const comment = await CommentById(post?.id)
+  const comments = comment.comment
   return (
     <div className="flex flex-col gap-y-6">
       <p className="font-bold text-slate-800 dark:text-gray-200">

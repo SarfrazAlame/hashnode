@@ -6,6 +6,7 @@ import LikeComment from "./LikeComment";
 import Discussion from "./Discussion";
 import Discussions from "./Discussions";
 import Connect from "./Connect";
+import RespectiveComments from "./RespectiveComments";
 
 const Conversation = ({
   post,
@@ -64,7 +65,7 @@ const Conversation = ({
             <Discussions post={post} userId={userId} user={user} />
           </div>
           <div>
-            <Discussion />
+            <RespectiveComments post={post}/>
           </div>
         </div>
         <div className="border flex items-center justify-center w-1/5 h-fit rounded-lg">
