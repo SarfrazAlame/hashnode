@@ -75,7 +75,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
               </HoverCard>
             </div>
             <Link
-              href={`/blog/${post.user.username}`}
+              href={`/blogs/${post.user.username}`}
               className="flex flex-col"
             >
               <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">

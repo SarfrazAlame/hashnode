@@ -73,7 +73,7 @@ const PostOptions = ({
           </SheetTrigger>
           <SheetContent>
             <SheetHeader className="flex flex-col gap-y-6">
-              <h1 className="text-xl">Comments({post.comments.length})</h1>
+              <h1 className="text-xl">Comments({post?.comments?.length})</h1>
               <div className="flex gap-2 items-center">
                 <Image
                   src={user.image!}

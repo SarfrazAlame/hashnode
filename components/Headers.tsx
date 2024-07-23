@@ -11,9 +11,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
 const Headers = async ({ post }: { post: PostWithAll }) => {
-  const user = await UserProfile(post.user.username!);
+  const user = await UserProfile(post?.user.username!);
   const ownerUser = await getServerSession(authOptions);
-  const followUser = await userFollow(post.user.id, ownerUser?.user.id!);
+  const followUser = await userFollow(post?.user.id, ownerUser?.user.id!);
   const style = "text-gray-200";
 
   return (
@@ -23,7 +23,7 @@ const Headers = async ({ post }: { post: PostWithAll }) => {
           <GoChevronLeft size={28} className="mx-4 text-slate-200" />
         </Link>
         <Link
-          href={`/random/${post.user.id}`}
+          href={`/random/${post?.user.id}`}
           className="flex items-center gap-2"
         >
           <Image
