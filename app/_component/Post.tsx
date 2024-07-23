@@ -12,9 +12,8 @@ import { BookMark, userFollow, UserProfile } from "@/auth/Recieve";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Follow from "./Follow";
-import { BookMarkPost } from "@/auth/action";
 
-const Post = async ({ post }: { post: PostWithAll }) => {
+const Post = async ({ post,className }: { post: PostWithAll,className:string }) => {
   const user = await UserProfile(post.user.username!);
   const ownerUser = await getServerSession(authOptions);
   const followUser = await userFollow(post.user.id, ownerUser?.user.id!);
@@ -34,7 +33,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
     "Dece",
   ];
   return (
-    <div className="flex flex-col gap-y-2 border rounded-xl p-5">
+    <div className={`${className} flex flex-col gap-y-2  p-5`}>
       <div className="flex w-full justify-between">
         <div className="flex w-2/3 flex-col gap-y-3">
           <div className="flex gap-2">
@@ -81,7 +80,7 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                         {user?.followers.length} followers
                       </p>
                       <p className="text-[12px]">
-                        {user?.following.length} followers
+                        {user?.following.length} following
                       </p>
                     </div>
                   </div>
@@ -96,9 +95,17 @@ const Post = async ({ post }: { post: PostWithAll }) => {
                 {post.user.name}
               </p>
               <div className="flex gap-2 items-center">
-                <p className="text-[12px] font-[500] text-slate-500 dark:text-slate-400">{post.user.username}</p>
-                <span className="-mt-2 text-slate-600 dark:text-slate-400">.</span>
-                <p className="text-[13px] font-[500] text-slate-500 dark:text-slate-400"> {monthNames[post.createdAt.getMonth()]} {post.createdAt.getDate()}, {post.createdAt.getFullYear()}</p>
+                <p className="text-[12px] font-[500] text-slate-500 dark:text-slate-400">
+                  {post.user.username}
+                </p>
+                <span className="-mt-2 text-slate-600 dark:text-slate-400">
+                  .
+                </span>
+                <p className="text-[13px] font-[500] text-slate-500 dark:text-slate-400">
+                  {" "}
+                  {monthNames[post.createdAt.getMonth()]}{" "}
+                  {post.createdAt.getDate()}, {post.createdAt.getFullYear()}
+                </p>
               </div>
             </Link>
           </div>

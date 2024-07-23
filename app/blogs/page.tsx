@@ -8,6 +8,7 @@ import Commenters from "../_component/Commenters";
 const page = async () => {
   const { posts } = await BlogPost();
   const { users } = await AllUser();
+  const className = "border rounded-xl"
 
   return (
     <main className="flex w-full justify-center items-center">
@@ -35,7 +36,7 @@ const page = async () => {
           </div>
           <div className="flex flex-col gap-y-5">
             {posts?.map((post) => (
-              <Post key={post.id} post={post} />
+              <Post key={post.id} post={post} className={className}/>
             ))}
           </div>
         </div>

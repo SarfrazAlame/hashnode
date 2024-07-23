@@ -4,9 +4,9 @@ import Link from "next/link";
 import React from "react";
 import FollowUser from "./FollowUser";
 
-const Commenters = ({ user }: { user: User[]|undefined }) => {
+const Commenters = ({ user }: { user: User[] | undefined }) => {
   return (
-    <div className="border h-fit w-1/3 mt-14 rounded-lg p-5">
+    <div className="border h-fit mt-14 rounded-lg p-5">
       <h1 className="font-semibold text-lg text-slate-700 dark:text-slate-200">
         Top commenters this week
       </h1>

@@ -13,11 +13,11 @@ const Connect = ({
   follow: Follows | { message: string } | null;
 }) => {
   return (
-    <div>
+    <div className="mx-auto">
       {follow ? (
         <button
           onClick={() => FollowUser(user.id)}
-          className="px-5 border py-2 rounded-full border-blue-500 text-blue-500"
+          className="px-5 border py-2 rounded-full border-blue-500 text-center text-blue-500"
         >
           following
         </button>

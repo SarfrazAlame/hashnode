@@ -34,7 +34,7 @@ const LikeComment = ({
               Discuss
             </p>
           </Link>
-          <p>.</p>
+          <p className="-mt-2">.</p>
           {post.likes?.length > 0 && (
             <p className="text-[13px] mt-0.5">{post.likes?.length} likes</p>
           )}
