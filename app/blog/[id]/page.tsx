@@ -44,7 +44,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
           />
         </div>
         <div className="w-5/12 ">
-          <UserBlog />
+          <UserBlog post={post}/>
         </div>
       </div>
     </div>

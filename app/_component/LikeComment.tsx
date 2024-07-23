@@ -35,7 +35,9 @@ const LikeComment = ({
             </p>
           </Link>
           <p>.</p>
-          {post.like?.length > 0 && <p>{post.like?.length} </p>}
+          {post.likes?.length > 0 && (
+            <p className="text-[13px] mt-0.5">{post.likes?.length} likes</p>
+          )}
         </div>
         <div className="flex items-center gap-3">
           <p className="text-[13px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-900 cursor-pointer">
