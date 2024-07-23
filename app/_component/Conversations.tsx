@@ -11,7 +11,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import RespectiveComments from "./RespectiveComments";
 
 const Conversations = ({
   post,
@@ -37,7 +36,10 @@ const Conversations = ({
   return (
     <div className="px-6 relative">
       <Form {...form}>
-        <form className="w-full flex flex-col">
+        <form
+          className="w-full flex flex-col"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FormField
             control={form.control}
             name="body"
@@ -53,6 +55,7 @@ const Conversations = ({
                   />
                 </FormLabel>
                 <Input
+                  {...field}
                   placeholder="Add a thoughtful comment"
                   className="px-14 h-16 focus-visible:ring-1 focus-visible:ring-blue-500"
                 />
@@ -67,7 +70,6 @@ const Conversations = ({
           </button>
         </form>
       </Form>
-      <RespectiveComments post={post} />
     </div>
   );
 };

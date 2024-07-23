@@ -1,6 +1,7 @@
 import Commenters from "@/app/_component/Commenters";
 import Conversations from "@/app/_component/Conversations";
 import Post from "@/app/_component/Post";
+import RespectiveComments from "@/app/_component/RespectiveComments";
 import { AllUser, BlogPost } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -21,6 +22,7 @@ const page = async () => {
               <Post post={post} key={post.id} className={className} />
               {/* @ts-ignore */}
               <Conversations post={post} user={user?.user} />
+              <RespectiveComments post={post} />
             </div>
           ))}
         </div>
