@@ -19,6 +19,20 @@ const Post = async ({ post }: { post: PostWithAll }) => {
   const ownerUser = await getServerSession(authOptions);
   const followUser = await userFollow(post.user.id, ownerUser?.user.id!);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "March",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dece",
+  ];
   return (
     <div className="flex flex-col gap-y-2 border rounded-xl p-5">
       <div className="flex w-full justify-between">
@@ -81,7 +95,11 @@ const Post = async ({ post }: { post: PostWithAll }) => {
               <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                 {post.user.name}
               </p>
-              <p className="text-[12px]">{post.user.username}</p>
+              <div className="flex gap-2 items-center">
+                <p className="text-[12px] font-[500] text-slate-500 dark:text-slate-400">{post.user.username}</p>
+                <span className="-mt-2 text-slate-600 dark:text-slate-400">.</span>
+                <p className="text-[13px] font-[500] text-slate-500 dark:text-slate-400"> {monthNames[post.createdAt.getMonth()]} {post.createdAt.getDate()}, {post.createdAt.getFullYear()}</p>
+              </div>
             </Link>
           </div>
           <Link href={`/blog/${post.id}`}>
