@@ -214,3 +214,21 @@ export const AllUser = async()=>{
         }
     }
 }
+
+export const CommentById = async(postId:string)=>{
+    try {
+        const comment = await prisma.comment.findMany({
+            where:{
+                postId
+            },
+            include:{
+                user:true
+            }
+        })
+        return {comment}
+    } catch (error) {
+        return {
+            message:"can't fatch"
+        }
+    }
+}

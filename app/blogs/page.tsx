@@ -1,4 +1,4 @@
-import { AllUser, BlogPost, UserProfile } from "@/auth/Recieve";
+import { AllUser, BlogPost} from "@/auth/Recieve";
 import { Medal } from "lucide-react";
 import { LiaPencilAltSolid } from "react-icons/lia";
 import { MdPeople } from "react-icons/md";

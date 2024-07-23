@@ -1,10 +1,5 @@
-import Connect from "@/app/_component/Connect";
 import Conversation from "@/app/_component/Conversation";
-import Discussion from "@/app/_component/Discussion";
-import Discussions from "@/app/_component/Discussions";
-import LikeComment from "@/app/_component/LikeComment";
 import UserId from "@/app/_component/UserId";
-import { FollowUser } from "@/auth/action";
 import { BookMark, PostById, userFollow } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
 import { PostWithAll } from "@/lib/type";

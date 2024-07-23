@@ -16,8 +16,6 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import React from "react";
 import { HiOutlineBookOpen } from "react-icons/hi2";
-import { format } from "date-fns";
-import DateTime from "@/app/_component/DateTime";
 import Link from "next/link";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
