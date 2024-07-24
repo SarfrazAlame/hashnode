@@ -66,7 +66,7 @@ const UserProfile = ({ user }: { user: User }) => {
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <Bookmark size={16} />
-          <p className="text-[13px]">Bookmarks</p>
+          <Link href={'/blogs/bookmarks'} className="text-[13px]">Bookmarks</Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <MdAccountCircle size={16} />

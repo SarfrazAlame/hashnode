@@ -279,3 +279,23 @@ export const ReplyByCommentId = async(commentId:string)=>{
         }
     }
 }
+
+
+export const Bookmark = async()=>{
+    try {
+        const bookmarks = await prisma.save.findMany({
+            include:{
+                post:{
+                    include:{
+                        user:true
+                    }
+                }
+            }
+        })
+        return {bookmarks}
+    } catch (error) {
+        return {
+            message:"failed to get bookmark"
+        }
+    }
+}
