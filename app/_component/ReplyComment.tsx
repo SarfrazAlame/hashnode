@@ -12,10 +12,12 @@ const ReplyComment = ({
   res,
   like,
   replies,
+  userId
 }: {
   res: CommentWithUserAndLike;
   like: Like | { message: string } | null;
   replies: ReplyWithUser[] | undefined;
+  userId:string
 }) => {
   return (
     <div className="">
@@ -46,7 +48,7 @@ const ReplyComment = ({
         <CommentReply res={res} />
       </div>
       <div className="ml-14 mt-2">
-        <ShowReply replies={replies}/>
+        <ShowReply replies={replies} userId={userId}/>
       </div>
     </div>
   );

@@ -48,12 +48,15 @@ const CommentReply = ({ res }: { res: CommentWithUserAndLike }) => {
                 </FormItem>
               )}
             />
-            <button
-              type="submit"
-              className="text-[13px] border mt-3 px-2 py-0.5 bg-blue-500 text-white rounded-full"
-            >
-              comment
-            </button>
+            <div>
+              <button
+                type="submit"
+                className="text-[13px] border mt-3 px-2 py-0.5 bg-blue-500 text-white rounded-full"
+              >
+                comment
+              </button>
+              <button onClick={() => setState(false)} className="text-[13px] border mt-3 px-2 py-0.5 bg-gray-500 text-white rounded-full">cancel</button>
+            </div>
           </form>
         </Form>
       )}
