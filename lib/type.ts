@@ -22,3 +22,4 @@ export type UserWithAll = User & {
 export type CommentWithUserAndLike = Comment &  {
     likes:LikeWithUser[]
 }
+

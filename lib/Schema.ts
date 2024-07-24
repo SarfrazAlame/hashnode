@@ -30,3 +30,7 @@ export const UserSchema = z.object({
 export const DiscussionsSchema = z.object({
     body: z.string().min(1)
 })
+
+export const ReplySchema = z.object({
+    response:z.string().min(1)
+})
