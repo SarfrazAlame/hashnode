@@ -1,18 +1,21 @@
 "use client";
 import { LikeComment } from "@/auth/action";
-import { CommentWithUserAndLike } from "@/lib/type";
-import { Like } from "@prisma/client";
+import { CommentWithUserAndLike, ReplyWithUser } from "@/lib/type";
+import { Like, Reply } from "@prisma/client";
 import { HeartIcon } from "lucide-react";
 import React, { useState } from "react";
 import { PiHeartLight } from "react-icons/pi";
 import CommentReply from "./CommentReply";
+import ShowReply from "./ShowReply";
 
 const ReplyComment = ({
   res,
   like,
+  replies,
 }: {
   res: CommentWithUserAndLike;
   like: Like | { message: string } | null;
+  replies: ReplyWithUser[] | undefined;
 }) => {
   return (
     <div className="">
@@ -41,6 +44,9 @@ const ReplyComment = ({
       </div>
       <div className="-mt-7 ml-14">
         <CommentReply res={res} />
+      </div>
+      <div className="ml-14 mt-2">
+        <ShowReply replies={replies}/>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Comment, Follows, Like, Post, Save, User } from "@prisma/client"
+import { Comment, Follows, Like, Post, Reply, Save, User } from "@prisma/client"
 
 export type CommnetWithUser = Comment & { user: User }
 export type LikeWithUser = Like & { user: User }
@@ -23,3 +23,6 @@ export type CommentWithUserAndLike = Comment &  {
     likes:LikeWithUser[]
 }
 
+export type ReplyWithUser = Reply & {
+    user:User
+}

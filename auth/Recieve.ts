@@ -255,3 +255,22 @@ export const LikeOnComment = async (commentId: string) => {
         }
     }
 }
+
+export const ReplyByCommentId = async(commentId:string)=>{
+    noStore()
+    try {
+        const replies = await prisma.reply.findMany({
+            where:{
+                commentId
+            },
+            include:{
+                user:true
+            }
+        })
+        return {replies}
+    } catch (error) {
+        return {
+            message:"failed to get"
+        }
+    }
+}

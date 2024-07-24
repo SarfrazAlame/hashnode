@@ -1,5 +1,5 @@
 'use server'
-import { DiscussionsSchema, formSchems, UserSchema } from "@/lib/Schema";
+import { DiscussionsSchema, formSchems, ReplySchema, UserSchema } from "@/lib/Schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
@@ -229,6 +229,47 @@ export const LikeComment = async (commentId: string) => {
     } catch (error) {
         return {
             message: "failed to post"
+        }
+    }
+}
+
+export const CommentOnReply = async (commentId: string, value: z.infer<typeof ReplySchema>) => {
+    const userId = await UserId()
+    const validatedField = ReplySchema.safeParse(value)
+    if (!validatedField.success) {
+        throw new Error('Unauthorized')
+    }
+    const { response } = validatedField.data;
+
+    try {
+        await prisma.reply.create({
+            data: {
+                response,
+                commentId,
+                userId
+            }
+        })
+        revalidatePath('/blogs/discussion')
+    } catch (error) {
+        return {
+            message: "failed to reply"
+        }
+    }
+}
+
+
+export const DeleteReply = async (replyId: string) => {
+    try {
+        await prisma.reply.delete({
+            where: {
+                id: replyId,
+            }
+
+        })
+        revalidatePath('/blogs/discussion')
+    } catch (error) {
+        return {
+            message: "failed to delete"
         }
     }
 }
