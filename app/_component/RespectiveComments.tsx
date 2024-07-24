@@ -1,4 +1,4 @@
-import { CommentById } from "@/auth/Recieve";
+import { CommentById, ReplyByCommentId } from "@/auth/Recieve";
 import { PostWithAll } from "@/lib/type";
 import Image from "next/image";
 import React from "react";

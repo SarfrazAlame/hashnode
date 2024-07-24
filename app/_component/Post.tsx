@@ -35,7 +35,7 @@ const Post = async ({ post,className }: { post: PostWithAll,className:string }) 
   return (
     <div className={`${className} flex flex-col gap-y-2  p-5`}>
       <div className="flex w-full justify-between">
-        <div className="flex w-2/3 flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 w-3/4 lg:w-full">
           <div className="flex gap-2">
             <div>
               <HoverCard>

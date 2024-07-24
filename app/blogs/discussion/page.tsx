@@ -16,7 +16,7 @@ const page = async () => {
   return (
     <div className="flex w-full items-center justify-center">
       <div className="flex w-full justify-center gap-12">
-        <div className="w-1/3 flex flex-col gap-y-5  mt-14">
+        <div className="flex flex-col gap-y-5 mt-14  mx-3 lg:mx-0">
           {posts?.map((post) => (
             <div key={post.id}>
               <Post post={post} key={post.id} className={className} />
@@ -26,7 +26,7 @@ const page = async () => {
             </div>
           ))}
         </div>
-        <div className="w-1/6 ">
+        <div className="hidden lg:block w-72">
           {/* @ts-ignore */}
           <Commenters user={users} ownerUser={ownerUser?.user} />
         </div>
