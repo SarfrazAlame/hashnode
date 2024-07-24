@@ -43,6 +43,7 @@ const page = async () => {
             ))}
           </div>
         </div>
+        {/* @ts-ignore */}
         <Commenters user={users} ownerUser={ownerUser} />
       </div>
     </main>
