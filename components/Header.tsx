@@ -41,7 +41,7 @@ const Header = async () => {
           Discussions
         </Link>
         <Link
-          href={"/blogs"}
+          href={"/blogs/explore"}
           className="text-[13px] font-semibold text-gray-500 dark:text-gray-300 cursor-pointer hover:border hover:border-gray-300 dark:hover:border-gray-700 px-4  py-1.5 rounded-full"
         >
           Explore
