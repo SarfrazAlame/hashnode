@@ -1,7 +1,8 @@
 "use client";
 import { LikeComment } from "@/auth/action";
 import { CommentWithUserAndLike } from "@/lib/type";
-import { Comment, Like } from "@prisma/client";
+import { Like } from "@prisma/client";
+import { HeartIcon } from "lucide-react";
 import React from "react";
 import { PiHeartLight } from "react-icons/pi";
 
@@ -10,16 +11,16 @@ const ReplyComment = ({
   like,
 }: {
   res: CommentWithUserAndLike;
-  like: Like[] | undefined;
+  like: Like | { message: string } | null;
 }) => {
   return (
-    <div className="flex gap-3 items-center">
+    <div className="flex gap-1 items-center">
       <div className="p-1 w-fit  rounded-full cursor-pointer hover:bg-red-200 hover:dark:bg-red-950">
         {like ? (
           <>
-            <PiHeartLight
+            <HeartIcon
               size={22}
-              className="hover:text-red-500 fill-red-500 border-red-500  font-[500] text-slate-500 dark:text-slate-400"
+              className="hover:text-red-500 fill-red-500 text-red-500 font-[500] dark:text-slate-400"
               onClick={() => LikeComment(res.id)}
             />
           </>
@@ -33,8 +34,9 @@ const ReplyComment = ({
           </>
         )}
       </div>
-      <p>{like?.length}</p>
-      <p className="text-[13px] hover:underline cursor-pointer font-[500] text-slate-500 dark:text-slate-400">
+      <p className="text-sm">{res.likes.length}</p>
+      <p className="-mt-2">.</p>
+      <p className="text-[13px] mx-2 hover:underline cursor-pointer font-[500] text-slate-500 dark:text-slate-400">
         Reply
       </p>
     </div>

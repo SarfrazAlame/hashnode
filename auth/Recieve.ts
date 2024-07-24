@@ -223,9 +223,9 @@ export const CommentById = async (postId: string) => {
             },
             include: {
                 user: true,
-                likes:{
-                    include:{
-                        user:true
+                likes: {
+                    include: {
+                        user: true
                     }
                 },
             }
@@ -240,13 +240,15 @@ export const CommentById = async (postId: string) => {
 
 export const LikeOnComment = async (commentId: string) => {
     noStore()
+    const userId = await UserId()
     try {
-        const like = await prisma.like.findMany({
+        const like = await prisma.like.findFirst({
             where: {
                 commentId,
+                userId
             },
         })
-        return {like}
+        return like
     } catch (error) {
         return {
             message: "failed to get like"

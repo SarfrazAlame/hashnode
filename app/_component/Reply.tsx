@@ -4,12 +4,9 @@ import React from "react";
 import ReplyComment from "./ReplyComment";
 import { CommentWithUserAndLike } from "@/lib/type";
 
-const Reply = async({ res }: { res: CommentWithUserAndLike }) => {
+const Reply = async ({ res }: { res: CommentWithUserAndLike }) => {
   const likes = await LikeOnComment(res.id);
-  const like = likes.like
-  return <ReplyComment res={res} like={like}/>;
+  return <ReplyComment res={res} like={likes} />;
 };
 
 export default Reply;
-
-
