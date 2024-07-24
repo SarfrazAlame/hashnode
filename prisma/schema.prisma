@@ -111,6 +111,8 @@ model Comment {
   id   String @id @default(uuid())
   body String
 
+  likes Like[]
+
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
@@ -127,8 +129,11 @@ model Comment {
 model Like {
   id String @id @default(uuid())
 
-  postId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  commentId String?
+
+  postId String?
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   userId String
   user   User   @relation(fields: [userId], references: [id])

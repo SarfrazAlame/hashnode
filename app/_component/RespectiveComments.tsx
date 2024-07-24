@@ -1,9 +1,11 @@
+import { LikePost } from "@/auth/action";
 import { CommentById } from "@/auth/Recieve";
 import { PostWithAll } from "@/lib/type";
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
 import { PiHeartLight } from "react-icons/pi";
+import Reply from "./Reply";
 
 const RespectiveComments = async ({ post }: { post: PostWithAll }) => {
   const comments = await CommentById(post.id);
@@ -64,17 +66,7 @@ const RespectiveComments = async ({ post }: { post: PostWithAll }) => {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 {res.body}
               </p>
-              <div className="flex gap-3 items-center">
-                <div className="p-1 w-fit  rounded-full cursor-pointer hover:bg-red-200 hover:dark:bg-red-950">
-                  <PiHeartLight
-                    size={22}
-                    className="hover:text-red-500  font-[500] text-slate-500 dark:text-slate-400"
-                  />
-                </div>
-                <p className="text-[13px] hover:underline cursor-pointer font-[500] text-slate-500 dark:text-slate-400">
-                  Reply
-                </p>
-              </div>
+              <Reply res={res}/>
             </div>
           </div>
         ))}

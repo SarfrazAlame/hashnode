@@ -47,7 +47,6 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string
     }
 }
 
-
 export const PostBlog = async (value: z.infer<typeof formSchems>) => {
     const userId = await UserId()
 
@@ -213,6 +212,23 @@ export const LikePost = async (id: string) => {
     } catch (error) {
         return {
             message: "can't like"
+        }
+    }
+}
+
+export const LikeComment = async(commentId:string)=>{
+    const userId = await UserId()
+    try {
+        await prisma.like.create({
+            data:{
+                commentId,
+                userId
+            }
+        })
+        revalidatePath('/blogs/discussion')
+    } catch (error) {
+        return {
+            message:"failed to post"
         }
     }
 }
