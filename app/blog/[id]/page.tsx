@@ -1,6 +1,7 @@
 import PostOptions from "@/app/_component/PostOptions";
 import UserId from "@/app/_component/UserId";
 import {
+  CommentById,
   CommentUser,
   likeUser,
   PostById,
@@ -24,9 +25,11 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const like = await likeUser(post?.id);
   const ownerUser = await getServerSession(authOptions);
   const user = await UserDetails(ownerUser?.user.id!, ownerUser?.user.email!);
-  const { comments } = await CommentUser();
+  const comment = await CommentById(post.id);
+  const comments = comment.comment
   const userId = await UserId();
   const follow = await userFollow(post.user.id, userId);
+ 
   const monthNames = [
     "Jan",
     "Feb",

@@ -1,5 +1,4 @@
 "use client";
-
 import { CommnetWithUser, PostWithAll } from "@/lib/type";
 import React from "react";
 import { HiOutlineHeart } from "react-icons/hi2";
@@ -122,7 +121,7 @@ const PostOptions = ({
                         {com.user.name}
                       </p>
                     </div>
-                    <p className="text-[15px]">{com.body}</p>
+                    <p className="text-[14px] mx-8 -mt-2">{com.body}</p>
                   </div>
                 ))}
               </div>
@@ -139,7 +138,6 @@ const PostOptions = ({
           className="text-slate-800 dark:text-slate-200 hover:dark:bg-gray-900"
         />
       </div>
-     
     </div>
   );
 };
