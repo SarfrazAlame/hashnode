@@ -1,10 +1,7 @@
-import { LikePost } from "@/auth/action";
 import { CommentById } from "@/auth/Recieve";
 import { PostWithAll } from "@/lib/type";
-import Head from "next/head";
 import Image from "next/image";
 import React from "react";
-import { PiHeartLight } from "react-icons/pi";
 import Reply from "./Reply";
 
 const RespectiveComments = async ({ post }: { post: PostWithAll }) => {
@@ -66,7 +63,7 @@ const RespectiveComments = async ({ post }: { post: PostWithAll }) => {
               <p className="text-sm text-slate-600 dark:text-slate-400">
                 {res.body}
               </p>
-              <Reply res={res}/>
+              <Reply res={res} />
             </div>
           </div>
         ))}

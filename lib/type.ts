@@ -18,3 +18,7 @@ export type UserWithAll = User & {
     follower: Follows[],
     following: Follows[]
 }
+
+export type CommentWithUserAndLike = Comment &  {
+    likes:LikeWithUser[]
+}

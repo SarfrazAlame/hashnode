@@ -216,11 +216,11 @@ export const LikePost = async (id: string) => {
     }
 }
 
-export const LikeComment = async(commentId:string)=>{
+export const LikeComment = async (commentId: string) => {
     const userId = await UserId()
     try {
         await prisma.like.create({
-            data:{
+            data: {
                 commentId,
                 userId
             }
@@ -228,7 +228,7 @@ export const LikeComment = async(commentId:string)=>{
         revalidatePath('/blogs/discussion')
     } catch (error) {
         return {
-            message:"failed to post"
+            message: "failed to post"
         }
     }
 }

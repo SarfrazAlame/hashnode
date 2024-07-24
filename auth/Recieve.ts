@@ -187,48 +187,69 @@ export const CommentUser = async () => {
     }
 }
 
-export const likeUser = async(id:string)=>{
+export const likeUser = async (id: string) => {
     const userId = await UserId()
     try {
         const like = await prisma.like.findFirst({
-            where:{
-                postId:id,
+            where: {
+                postId: id,
                 userId
             }
         })
         return like
     } catch (error) {
         return {
-            message:"like user"
+            message: "like user"
         }
     }
 }
 
-export const AllUser = async()=>{
+export const AllUser = async () => {
     try {
         const users = await prisma.user.findMany({})
-        return {users}
+        return { users }
     } catch (error) {
         return {
-            message:"failed to get user"
+            message: "failed to get user"
         }
     }
 }
 
-export const CommentById = async(postId:string)=>{
+export const CommentById = async (postId: string) => {
     try {
         const comment = await prisma.comment.findMany({
-            where:{
+            where: {
                 postId
             },
-            include:{
-                user:true
+            include: {
+                user: true,
+                likes:{
+                    include:{
+                        user:true
+                    }
+                },
             }
         })
-        return {comment}
+        return { comment }
     } catch (error) {
         return {
-            message:"can't fatch"
+            message: "can't fatch"
+        }
+    }
+}
+
+export const LikeOnComment = async (commentId: string) => {
+    noStore()
+    try {
+        const like = await prisma.like.findMany({
+            where: {
+                commentId,
+            },
+        })
+        return {like}
+    } catch (error) {
+        return {
+            message: "failed to get like"
         }
     }
 }
