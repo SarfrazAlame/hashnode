@@ -22,10 +22,10 @@ const page = async ({
 }: {
   params: { username: string };
 }) => {
-  const user = await UserProfile(username) ;
+  const user = await UserProfile(username);
   const ownerUser = await getServerSession(authOptions);
-  const userId = await UserId()
-  const follow = await userFollow(user?.id!,userId)
+  const userId = await UserId();
+  const follow = await userFollow(user?.id!, userId);
 
   return (
     <div className="w-full h-screen flex ">
@@ -44,6 +44,10 @@ const page = async ({
             <div>
               <p className="text-3xl font-bold cursor-pointer">{user?.name}</p>
               <p>{user?.tagline}</p>
+              <div className="flex gap-3 my-2">
+                <p className="text-sm">{user?.followers.length} Followers</p>
+                <p className="text-sm">{user?.following.length} Following</p>
+              </div>
             </div>
           </div>
           <div className="mx-32 sm:mx-0 -mt-6 sm:">
@@ -57,7 +61,7 @@ const page = async ({
               </Link>
             ) : (
               // @ts-ignore
-             <FollowIcon user={user} follow={follow}/>
+              <FollowIcon user={user} follow={follow} />
             )}
           </div>
         </div>

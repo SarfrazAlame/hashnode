@@ -14,7 +14,7 @@ const Header = async () => {
   const user = session?.user;
 
   const user1 = await UserDetails(user?.id!, user?.email!);
-  const style = "text-gray-500"
+  const style = "text-gray-500";
 
   return (
     <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 md:px-12 sm:px-5 px-3">
@@ -61,7 +61,7 @@ const Header = async () => {
         {user ? (
           <>
             <div>
-              <SwitchThemeProvider style={style}/>
+              <SwitchThemeProvider style={style} />
             </div>
             <Bell
               size={22}
@@ -73,7 +73,7 @@ const Header = async () => {
         ) : (
           <>
             <div>
-              <SwitchThemeProvider style={style}/>
+              <SwitchThemeProvider style={style} />
             </div>
             <Bell
               size={22}

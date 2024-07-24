@@ -39,8 +39,11 @@ const UserProfile = ({ user }: { user: User }) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="py-4 w-56">
-        <DropdownMenuItem >
-          <Link  className="flex items-center gap-1  cursor-pointer"href={`/blogs/${user.username}`}>
+        <DropdownMenuItem>
+          <Link
+            className="flex items-center gap-1  cursor-pointer"
+            href={`/blogs/${user.username}`}
+          >
             <Image
               src={user?.image!}
               alt=""
@@ -57,7 +60,9 @@ const UserProfile = ({ user }: { user: User }) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <Notebook size={16} />
-          <p className="text-[13px]">My drafts</p>
+          <Link href={`/draft`} className="text-[13px]">
+            My drafts
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <Bookmark size={16} />
@@ -65,7 +70,9 @@ const UserProfile = ({ user }: { user: User }) => {
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <MdAccountCircle size={16} />
-          <p className="text-[13px]">Account settings</p>
+          <Link href={`/blogs/${user.username}`} className="text-[13px]">
+            Account settings
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

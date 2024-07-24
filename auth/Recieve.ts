@@ -206,7 +206,12 @@ export const likeUser = async (id: string) => {
 
 export const AllUser = async () => {
     try {
-        const users = await prisma.user.findMany({})
+        const users = await prisma.user.findMany({
+            include:{
+                followers:true,
+                following:true
+            }
+        })
         return { users }
     } catch (error) {
         return {
