@@ -78,6 +78,7 @@ model User {
   following     Follows[] @relation("follower")
   sessions      Session[]
   accounts      Account[]
+  Reply Reply[]
 }
 
 model Follows {
@@ -113,6 +114,8 @@ model Comment {
 
   likes Like[]
 
+  replies  Reply[]
+
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
@@ -126,8 +129,23 @@ model Comment {
   @@index([postId])
 }
 
+model Reply {
+  id String @id @default(uuid())
+
+  likes  Like[]
+
+  commentId String
+  comment Comment @relation(fields: [commentId], references: [id])
+
+  userId String
+  user User @relation(fields: [userId], references: [id],onDelete: Cascade)
+}
+
 model Like {
   id String @id @default(uuid())
+
+  replyId String?
+  reply Reply? @relation(fields: [replyId],references: [id])
 
   comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
   commentId String?

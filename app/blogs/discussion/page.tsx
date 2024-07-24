@@ -11,7 +11,7 @@ const page = async () => {
   const { users } = await AllUser();
   const { posts } = await BlogPost();
   const className = "border-t border-r border-l rounded-xl";
-  const user = await getServerSession(authOptions);
+  const ownerUser = await getServerSession(authOptions);
 
   return (
     <div className="flex w-full items-center justify-center">
@@ -21,13 +21,14 @@ const page = async () => {
             <div key={post.id}>
               <Post post={post} key={post.id} className={className} />
               {/* @ts-ignore */}
-              <Conversations post={post} user={user?.user} />
+              <Conversations post={post} user={ownerUser?.user} />
               <RespectiveComments post={post} />
             </div>
           ))}
         </div>
         <div className="w-1/6 ">
-          <Commenters user={users} />
+          {/* @ts-ignore */}
+          <Commenters user={users} ownerUser={ownerUser?.user} />
         </div>
       </div>
     </div>
