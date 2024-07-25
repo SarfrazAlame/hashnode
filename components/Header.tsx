@@ -8,7 +8,7 @@ import Link from "next/link";
 import Signup from "./Signup";
 import { getServerSession } from "next-auth";
 import { UserDetails } from "@/auth/Recieve";
-import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const Header = async () => {
   const session = await getServerSession();
@@ -68,7 +68,9 @@ const Header = async () => {
                   {" "}
                   <button className="text-white text-[13px]">Write</button>
                 </DropdownMenuTrigger>
-                <p>Please Sign in to write blogs</p>
+               <DropdownMenuContent>
+               <p>Please Sign in to write blogs</p>
+               </DropdownMenuContent>
               </DropdownMenu>
             </>
           )}
