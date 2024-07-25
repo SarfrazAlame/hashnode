@@ -1,8 +1,8 @@
 "use client";
-import { CreateUser } from "@/auth/action";
+import { CreateAccount, CreateUser } from "@/auth/action";
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { UserSchema } from "@/lib/Schema";
+import { AccountSchema, UserSchema } from "@/lib/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import React from "react";
@@ -24,8 +24,8 @@ type User =
   | undefined;
 
 const ProfileComplete = ({ user }: { user: User }) => {
-  const form = useForm<z.infer<typeof UserSchema>>({
-    resolver: zodResolver(UserSchema),
+  const form = useForm<z.infer<typeof AccountSchema>>({
+    resolver: zodResolver(AccountSchema),
     defaultValues: {
       name: user?.name!,
       username: user?.username || "",
@@ -35,9 +35,9 @@ const ProfileComplete = ({ user }: { user: User }) => {
     },
   });
 
-  const onSubmit = async (value: z.infer<typeof UserSchema>) => {
+  const onSubmit = async (value: z.infer<typeof AccountSchema>) => {
     try {
-      await CreateUser(value, user?.email!);
+      await CreateAccount(value, user?.email!);
       toast.success("Profile completed");
     } catch (error) {
       console.log(error);

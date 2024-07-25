@@ -27,6 +27,14 @@ export const UserSchema = z.object({
     youtube: z.string().optional(),
 })
 
+export const AccountSchema = z.object({
+    name: z.string().min(1),
+    username: z.string().min(3),
+    bio: z.string().min(5),
+    tagline: z.string(),
+    email: z.string(),
+})
+
 export const DiscussionsSchema = z.object({
     body: z.string().min(1)
 })

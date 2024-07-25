@@ -1,5 +1,5 @@
 'use server'
-import { DiscussionsSchema, formSchems, ReplySchema, UserSchema } from "@/lib/Schema";
+import { AccountSchema, DiscussionsSchema, formSchems, ReplySchema, UserSchema } from "@/lib/Schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
@@ -43,6 +43,35 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string
         console.log(error)
         return {
             message: "Something went wrong"
+        }
+    }
+}
+
+export const CreateAccount = async(value:z.infer<typeof AccountSchema>,mail:string)=>{
+    const validatedField = AccountSchema.safeParse(value)
+
+    if (!validatedField.success) {
+        throw new Error("Complete all field")
+    }
+    const {name,bio,email,tagline,username} = validatedField.data
+
+    try {
+        await prisma.user.update({
+            where:{
+                email:mail
+            },
+            data:{
+                name,
+                bio,
+                email,
+                tagline,
+                username
+            }
+        })
+        revalidatePath('/login/username')
+    } catch (error) {
+        return {
+            message:"something went wrong"
         }
     }
 }
