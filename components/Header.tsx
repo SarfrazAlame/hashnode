@@ -8,6 +8,7 @@ import Link from "next/link";
 import Signup from "./Signup";
 import { getServerSession } from "next-auth";
 import { UserDetails } from "@/auth/Recieve";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const Header = async () => {
   const session = await getServerSession();
@@ -54,9 +55,23 @@ const Header = async () => {
         />
         <div className="flex gap-1 items-center bg-blue-600 py-1.5 px-3 rounded-full">
           <TbPencilMinus className="text-white cursor-pointer" />
-          <Link href={"/draft"} className="text-white text-[13px]">
-            Write
-          </Link>
+          {user ? (
+            <>
+              <Link href={"/draft"} className="text-white text-[13px]">
+                Write
+              </Link>
+            </>
+          ) : (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  {" "}
+                  <button className="text-white text-[13px]">Write</button>
+                </DropdownMenuTrigger>
+                <p>Please Sign in to write blogs</p>
+              </DropdownMenu>
+            </>
+          )}
         </div>
         {user ? (
           <>
