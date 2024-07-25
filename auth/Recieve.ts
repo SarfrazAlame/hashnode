@@ -322,3 +322,56 @@ export const UserById = async (userId: string) => {
         }
     }
 }
+
+export const FolloPost = async (followerId: string) => {
+    noStore()
+    try {
+        const posts = await prisma.post.findMany({
+            where: {
+                user: {
+                    AND: {
+                        followers: {
+                            every: {
+                                followerId
+                            }
+                        }
+                    }
+                },
+            },
+            include: {
+                likes: {
+                    include: {
+                        user: true
+                    }
+                },
+                comments: {
+                    include: {
+                        user: true
+                    },
+                    orderBy: {
+                        createdAt: 'desc'
+                    }
+                },
+                saves: {
+                    include: {
+                        user: true
+                    }
+                },
+                user: {
+                    include: {
+                        followers: true,
+                        following: true
+                    }
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+
+        })
+    } catch (error) {
+        return {
+            message: "can't fatch"
+        }
+    }
+}

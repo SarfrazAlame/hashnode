@@ -1,5 +1,5 @@
 import Commenters from "@/app/_component/Commenters";
-import { AllUser, BlogPost } from "@/auth/Recieve";
+import { AllUser, BlogPost, FolloPost } from "@/auth/Recieve";
 import BelowHead from "@/components/BelowHead";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -21,5 +21,4 @@ const page = async () => {
     </main>
   );
 };
-
 export default page;
