@@ -5,7 +5,6 @@ import { getAuthOptions } from "@/lib/auth";
 
 const page = async() => {
   const session = await getAuthOptions();
-  if(!session?.user) return <p>loading...</p>
   return <AllPost />;
 };
 
