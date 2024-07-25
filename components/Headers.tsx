@@ -7,8 +7,7 @@ import { GoChevronLeft } from "react-icons/go";
 import SwitchThemeProvider from "./SwitchThemeProvider";
 import Follow from "@/app/_component/Follow";
 import { userFollow, UserProfile } from "@/auth/Recieve";
-import { getServerSession } from "next-auth";
-import { authOptions, getAuthOptions } from "@/lib/auth";
+import { getAuthOptions } from "@/lib/auth";
 
 const Headers = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post?.user.username!);
