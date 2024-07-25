@@ -83,7 +83,12 @@ export const BlogPost = async () => {
                         user: true
                     }
                 },
-                user: true
+                user: {
+                    include: {
+                        followers: true,
+                        following: true
+                    }
+                }
             },
             orderBy: {
                 createdAt: 'desc'
@@ -207,9 +212,9 @@ export const likeUser = async (id: string) => {
 export const AllUser = async () => {
     try {
         const users = await prisma.user.findMany({
-            include:{
-                followers:true,
-                following:true
+            include: {
+                followers: true,
+                following: true
             }
         })
         return { users }
@@ -261,59 +266,59 @@ export const LikeOnComment = async (commentId: string) => {
     }
 }
 
-export const ReplyByCommentId = async(commentId:string)=>{
+export const ReplyByCommentId = async (commentId: string) => {
     noStore()
     try {
         const replies = await prisma.reply.findMany({
-            where:{
+            where: {
                 commentId
             },
-            include:{
-                user:true
+            include: {
+                user: true
             }
         })
-        return {replies}
+        return { replies }
     } catch (error) {
         return {
-            message:"failed to get"
+            message: "failed to get"
         }
     }
 }
 
-export const Bookmark = async()=>{
+export const Bookmark = async () => {
     try {
         const bookmarks = await prisma.save.findMany({
-            include:{
-                post:{
-                    include:{
-                        user:true
+            include: {
+                post: {
+                    include: {
+                        user: true
                     }
                 }
             }
         })
-        return {bookmarks}
+        return { bookmarks }
     } catch (error) {
         return {
-            message:"failed to get bookmark"
+            message: "failed to get bookmark"
         }
     }
 }
 
-export const UserById = async(userId:string)=>{
+export const UserById = async (userId: string) => {
     try {
         const user = await prisma.user.findMany({
-            where:{
-                id:userId
+            where: {
+                id: userId
             },
-            include:{
-                posts:true
+            include: {
+                posts: true
             }
         })
-        return {user}
+        return { user }
 
     } catch (error) {
         return {
-            message:"can't get data"
+            message: "can't get data"
         }
     }
 }

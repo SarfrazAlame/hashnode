@@ -4,8 +4,14 @@ import Link from "next/link";
 import React from "react";
 import FollowUser from "./FollowUser";
 
-const Commenters = ({ user,ownerUser }: { user: User[] | undefined, ownerUser:User }) => {
-  const expectMeUser = user?.filter((user)=>user.id!==ownerUser?.id)
+const Commenters = ({
+  user,
+  ownerUser,
+}: {
+  user: User[] | undefined;
+  ownerUser: User;
+}) => {
+  const expectMeUser = user?.filter((user) => user.id !== ownerUser?.id);
   return (
     <div className="border hidden lg:block h-fit mt-14 rounded-lg p-5">
       <h1 className="font-semibold text-lg text-slate-700 dark:text-slate-200">
