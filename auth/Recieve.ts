@@ -1,7 +1,7 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
-import { PostWithAll } from "@/lib/type";
 import UserId from "@/app/_component/UserId";
+import { tree } from "next/dist/build/templates/app-page";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -280,7 +280,6 @@ export const ReplyByCommentId = async(commentId:string)=>{
     }
 }
 
-
 export const Bookmark = async()=>{
     try {
         const bookmarks = await prisma.save.findMany({
@@ -296,6 +295,25 @@ export const Bookmark = async()=>{
     } catch (error) {
         return {
             message:"failed to get bookmark"
+        }
+    }
+}
+
+export const UserById = async(userId:string)=>{
+    try {
+        const user = await prisma.user.findMany({
+            where:{
+                id:userId
+            },
+            include:{
+                posts:true
+            }
+        })
+        return {user}
+
+    } catch (error) {
+        return {
+            message:"can't get data"
         }
     }
 }
