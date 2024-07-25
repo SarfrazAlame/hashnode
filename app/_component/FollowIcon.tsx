@@ -18,7 +18,7 @@ const FollowIcon = ({
       {follow ? (
         <>
           <button
-            onClick={() => FollowUser(user.id)}
+            onClick={() => FollowUser(user?.id)}
             className="flex items-center gap-1 border border-blue-500 text-blue-500  px-3 py-2 rounded-full font-[500] text-sm"
           >
             <IoCheckmark size={18} />

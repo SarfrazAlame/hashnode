@@ -3,8 +3,8 @@ import { AccountSchema, DiscussionsSchema, formSchems, ReplySchema, UserSchema }
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import prisma from "@/lib/prisma";
-import UserId from "@/app/_component/UserId";
 import { redirect } from "next/navigation";
+import { getUserId } from "@/lib/utils";
 
 export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string) => {
     const validatedField = UserSchema.safeParse(value)
@@ -47,20 +47,20 @@ export const CreateUser = async (value: z.infer<typeof UserSchema>, mail: string
     }
 }
 
-export const CreateAccount = async(value:z.infer<typeof AccountSchema>,mail:string)=>{
+export const CreateAccount = async (value: z.infer<typeof AccountSchema>, mail: string) => {
     const validatedField = AccountSchema.safeParse(value)
 
     if (!validatedField.success) {
         throw new Error("Complete all field")
     }
-    const {name,bio,email,tagline,username} = validatedField.data
+    const { name, bio, email, tagline, username } = validatedField.data
 
     try {
         await prisma.user.update({
-            where:{
-                email:mail
+            where: {
+                email: mail
             },
-            data:{
+            data: {
                 name,
                 bio,
                 email,
@@ -71,13 +71,13 @@ export const CreateAccount = async(value:z.infer<typeof AccountSchema>,mail:stri
         revalidatePath('/login/username')
     } catch (error) {
         return {
-            message:"something went wrong"
+            message: "something went wrong"
         }
     }
 }
 
 export const PostBlog = async (value: z.infer<typeof formSchems>) => {
-    const userId = await UserId()
+    const userId = await getUserId()
 
     const validatedField = formSchems.safeParse(value)
 
@@ -111,7 +111,7 @@ export const PostBlog = async (value: z.infer<typeof formSchems>) => {
 }
 
 export const FollowUser = async (id: string) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     const FollowUser = await prisma.follows.findUnique({
         where: {
             followerId_followingId: {
@@ -157,7 +157,7 @@ export const FollowUser = async (id: string) => {
 }
 
 export const BookMarkPost = async (id: string) => {
-    const userId = await UserId()
+    const userId = await getUserId()
 
     const bookmark = await prisma.save.findUnique({
         where: {
@@ -206,7 +206,7 @@ export const BookMarkPost = async (id: string) => {
 }
 
 export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSchema>) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     const validatedField = DiscussionsSchema.safeParse(value)
     if (!validatedField.success) {
         throw new Error("Write comment")
@@ -229,7 +229,7 @@ export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSc
 }
 
 export const LikePost = async (id: string) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     try {
         await prisma.like.create({
             data: {
@@ -246,7 +246,7 @@ export const LikePost = async (id: string) => {
 }
 
 export const LikeComment = async (commentId: string) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     try {
         await prisma.like.create({
             data: {
@@ -263,7 +263,7 @@ export const LikeComment = async (commentId: string) => {
 }
 
 export const CommentOnReply = async (commentId: string, value: z.infer<typeof ReplySchema>) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     const validatedField = ReplySchema.safeParse(value)
     if (!validatedField.success) {
         throw new Error('Unauthorized')
@@ -285,7 +285,6 @@ export const CommentOnReply = async (commentId: string, value: z.infer<typeof Re
         }
     }
 }
-
 
 export const DeleteReply = async (replyId: string) => {
     try {

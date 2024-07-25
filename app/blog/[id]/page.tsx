@@ -1,5 +1,4 @@
 import PostOptions from "@/app/_component/PostOptions";
-import UserId from "@/app/_component/UserId";
 import {
   CommentById,
   CommentUser,
@@ -18,6 +17,7 @@ import Image from "next/image";
 import React from "react";
 import { HiOutlineBookOpen } from "react-icons/hi2";
 import Link from "next/link";
+import { getUserId } from "@/lib/utils";
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
@@ -27,8 +27,8 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const user = await UserDetails(ownerUser?.user.id!, ownerUser?.user.email!);
   const comment = await CommentById(post.id);
   const comments = comment.comment
-  const userId = await UserId();
-  const follow = await userFollow(post.user.id, userId);
+  const userId = await getUserId();
+  const follow = await userFollow(post.user.id);
  
   const monthNames = [
     "Jan",

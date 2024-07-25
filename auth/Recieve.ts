@@ -1,7 +1,7 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
-import UserId from "@/app/_component/UserId";
 import { tree } from "next/dist/build/templates/app-page";
+import { getUserId } from "@/lib/utils";
 
 export const UserDetails = async (id: string, email: string) => {
     noStore()
@@ -103,7 +103,8 @@ export const BlogPost = async () => {
     }
 }
 
-export const userFollow = async (id: string, userId: string) => {
+export const userFollow = async (id: string) => {
+    const userId = await getUserId()
     try {
         const follow = await prisma.follows.findUnique({
             where: {
@@ -193,7 +194,7 @@ export const CommentUser = async () => {
 }
 
 export const likeUser = async (id: string) => {
-    const userId = await UserId()
+    const userId = await getUserId()
     try {
         const like = await prisma.like.findFirst({
             where: {
@@ -250,7 +251,7 @@ export const CommentById = async (postId: string) => {
 
 export const LikeOnComment = async (commentId: string) => {
     noStore()
-    const userId = await UserId()
+    const userId = await getUserId()
     try {
         const like = await prisma.like.findFirst({
             where: {

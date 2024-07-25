@@ -1,13 +1,10 @@
 import Explore from "@/app/_component/Explore";
-import Follow from "@/app/_component/Follow";
 import { AllUser } from "@/auth/Recieve";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

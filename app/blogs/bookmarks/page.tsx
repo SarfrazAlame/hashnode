@@ -6,7 +6,6 @@ import React from "react";
 const page = async () => {
   const bookmarks = await Bookmark();
   const bookmark = bookmarks.bookmarks;
-  const { posts } = await BlogPost();
 
   return (
     <div className="flex w-full justify-center mt-5">

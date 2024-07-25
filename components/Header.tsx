@@ -6,15 +6,19 @@ import SwitchThemeProvider from "./SwitchThemeProvider";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import Signup from "./Signup";
-import { getServerSession } from "next-auth";
 import { UserDetails } from "@/auth/Recieve";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { getAuthOptions } from "@/lib/auth";
 
 const Header = async () => {
-  const session = await getServerSession();
+  const session = await getAuthOptions();
   const user = session?.user;
 
-  const user1 = await UserDetails(user?.id!, user?.email!);
+  const mainUser = await UserDetails(user?.id!, user?.email!);
   const style = "text-gray-500";
 
   return (
@@ -68,9 +72,9 @@ const Header = async () => {
                   {" "}
                   <button className="text-white text-[13px]">Write</button>
                 </DropdownMenuTrigger>
-               <DropdownMenuContent>
-               <p>Please Sign in to write blogs</p>
-               </DropdownMenuContent>
+                <DropdownMenuContent>
+                  <p>Please Sign in to write blogs</p>
+                </DropdownMenuContent>
               </DropdownMenu>
             </>
           )}
@@ -85,7 +89,7 @@ const Header = async () => {
               className="text-gray-500 cursor-pointer dark:text-gray-300"
             />
             {/* @ts-ignore */}
-            <UserProfile user={user1} />
+            <UserProfile user={user} mainUser={mainUser} />
           </>
         ) : (
           <>

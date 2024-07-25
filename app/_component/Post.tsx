@@ -10,13 +10,19 @@ import {
 } from "@/components/ui/hover-card";
 import { BookMark, userFollow, UserProfile } from "@/auth/Recieve";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { authOptions, getAuthOptions } from "@/lib/auth";
 import Follow from "./Follow";
 
-const Post = async ({ post,className }: { post: PostWithAll,className:string }) => {
+const Post = async ({
+  post,
+  className,
+}: {
+  post: PostWithAll;
+  className: string;
+}) => {
   const user = await UserProfile(post.user.username!);
-  const ownerUser = await getServerSession(authOptions);
-  const followUser = await userFollow(post.user.id, ownerUser?.user.id!);
+  const ownerUser = await getAuthOptions();
+  const followUser = await userFollow(post.user.id);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
   const monthNames = [
     "Jan",

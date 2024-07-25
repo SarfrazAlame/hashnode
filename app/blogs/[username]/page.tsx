@@ -1,5 +1,4 @@
 import FollowIcon from "@/app/_component/FollowIcon";
-import UserId from "@/app/_component/UserId";
 import { userFollow, UserProfile } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
 import { PenIcon, Plus } from "lucide-react";
@@ -24,8 +23,7 @@ const page = async ({
 }) => {
   const user = await UserProfile(username);
   const ownerUser = await getServerSession(authOptions);
-  const userId = await UserId();
-  const follow = await userFollow(user?.id!, userId);
+  const follow = await userFollow(user?.id!);
 
   return (
     <div className="w-full h-screen flex ">

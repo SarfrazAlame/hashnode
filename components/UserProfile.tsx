@@ -26,7 +26,7 @@ type User = {
   updatedAt: Date;
 };
 
-const UserProfile = ({ user }: { user: User }) => {
+const UserProfile = ({ user, mainUser }: { user: User; mainUser: User }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -42,7 +42,7 @@ const UserProfile = ({ user }: { user: User }) => {
         <DropdownMenuItem>
           <Link
             className="flex items-center gap-1  cursor-pointer"
-            href={`/blogs/${user.username}`}
+            href={`/blogs/${mainUser?.username}`}
           >
             <Image
               src={user?.image!}
@@ -53,7 +53,7 @@ const UserProfile = ({ user }: { user: User }) => {
             />
             <div>
               <p>{user?.name}</p>
-              <p>{user?.username}</p>
+              <p>{mainUser?.username}</p>
             </div>
           </Link>
         </DropdownMenuItem>
@@ -66,11 +66,13 @@ const UserProfile = ({ user }: { user: User }) => {
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <Bookmark size={16} />
-          <Link href={'/blogs/bookmarks'} className="text-[13px]">Bookmarks</Link>
+          <Link href={"/blogs/bookmarks"} className="text-[13px]">
+            Bookmarks
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex gap-2 my-2 cursor-pointer">
           <MdAccountCircle size={16} />
-          <Link href={`/blogs/${user.username}`} className="text-[13px]">
+          <Link href={`/blogs/${user?.username}`} className="text-[13px]">
             Account settings
           </Link>
         </DropdownMenuItem>
