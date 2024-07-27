@@ -1,7 +1,7 @@
 "use client";
 import { FollowUser } from "@/auth/action";
-import { PostWithAll, UserWithAll } from "@/lib/type";
-import { Follows, User } from "@prisma/client";
+import { PostWithAll } from "@/lib/type";
+import { Follows } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 

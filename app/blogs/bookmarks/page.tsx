@@ -1,4 +1,4 @@
-import { BlogPost, Bookmark } from "@/auth/Recieve";
+import { Bookmark } from "@/auth/Recieve";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

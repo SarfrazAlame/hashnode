@@ -1,7 +1,7 @@
 "use client";
 
 import { FollowUser } from "@/auth/action";
-import { PostWithAll, UserWithAll } from "@/lib/type";
+import { UserWithAll } from "@/lib/type";
 import { Follows } from "@prisma/client";
 import { Plus } from "lucide-react";
 import React from "react";

@@ -1,6 +1,5 @@
 import Post from "@/app/_component/Post";
 import { PostWithAll } from "@/lib/type";
-import { Follows } from "@prisma/client";
 import { Medal } from "lucide-react";
 import Link from "next/link";
 import React from "react";

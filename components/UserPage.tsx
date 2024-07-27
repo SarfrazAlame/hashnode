@@ -6,7 +6,6 @@ import { Search } from "lucide-react";
 import {
   BsFacebook,
   BsGithub,
-  BsInbox,
   BsInstagram,
   BsLinkedin,
   BsStackOverflow,

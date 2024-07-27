@@ -8,11 +8,13 @@ import SwitchThemeProvider from "./SwitchThemeProvider";
 import Follow from "@/app/_component/Follow";
 import { userFollow, UserProfile } from "@/auth/Recieve";
 import { getAuthOptions } from "@/lib/auth";
+import { getUserId } from "@/lib/utils";
 
 const Headers = async ({ post }: { post: PostWithAll }) => {
   const user = await UserProfile(post?.user.username!);
   const ownerUser = await getAuthOptions();
-  const followUser = await userFollow(post?.user.id);
+  const userId = await getUserId()
+  const followUser = await userFollow(post?.user.id,userId);
   const style = "text-gray-200";
 
   return (

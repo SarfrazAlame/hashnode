@@ -18,12 +18,14 @@ const page = () => {
               <FaHashnode size={32} className="fill-blue-600" />
               <p className="text-2xl font-extrabold">Hashnode</p>
             </div>
-            <div className="flex flex-col items-center">
-              <p className="text-lg font-semibold text-gray-800">
+            <div className="flex flex-col items-center"> 
+              <p className="text-lg font-semibold text-gray-800 dark:text-slate-200">
                 Log in or Sign up
               </p>
               <button
-                onClick={() => signIn("google", { callbackUrl: "/login/username" })}
+                onClick={() =>
+                  signIn("google", { callbackUrl: "/login/username" })
+                }
                 className="py-2.5 w-80 bg-blue-600 text-white rounded-full border my-3"
               >
                 Continue with Google

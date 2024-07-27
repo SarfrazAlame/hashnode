@@ -1,15 +1,13 @@
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import prisma from "@/lib/prisma";
-import { tree } from "next/dist/build/templates/app-page";
 import { getUserId } from "@/lib/utils";
+import { cache } from 'react'
 
-export const UserDetails = async (id: string, email: string) => {
-    noStore()
+export const UserDetails = cache(async (userId: string) => {
     try {
         const user = await prisma.user.findUnique({
             where: {
-                id,
-                email
+                id:userId,
             }
         })
         return user
@@ -18,10 +16,9 @@ export const UserDetails = async (id: string, email: string) => {
             message: "failed to get user"
         }
     }
-}
+})
 
-export const UserProfile = async (username: string) => {
-    noStore()
+export const UserProfile = cache(async (username: string) => {
     try {
         const user = await prisma.user.findUnique({
             where: {
@@ -58,10 +55,9 @@ export const UserProfile = async (username: string) => {
     } finally {
         await prisma.$disconnect()
     }
-}
+})
 
-export const BlogPost = async () => {
-    noStore()
+export const BlogPost = cache(async () => {
     try {
         const posts = await prisma.post.findMany({
             include: {
@@ -101,10 +97,9 @@ export const BlogPost = async () => {
             message: "can't fetch"
         }
     }
-}
+})
 
-export const userFollow = async (id: string) => {
-    const userId = await getUserId()
+export const userFollow = cache(async (id: string, userId: string) => {
     try {
         const follow = await prisma.follows.findUnique({
             where: {
@@ -121,9 +116,9 @@ export const userFollow = async (id: string) => {
             message: "cann't get follower"
         }
     }
-}
+})
 
-export const BookMark = async (id: string, userId: string) => {
+export const BookMark = cache(async (id: string, userId: string) => {
     try {
         const bookmark = await prisma.save.findUnique({
             where: {
@@ -140,10 +135,9 @@ export const BookMark = async (id: string, userId: string) => {
             message: "failed to get bookmark"
         }
     }
-}
+})
 
-export async function PostById(id: string) {
-    noStore()
+export const PostById = cache(async (id: string) => {
 
     try {
         const post = await prisma.post.findUnique({
@@ -175,9 +169,9 @@ export async function PostById(id: string) {
             message: "failed to get post"
         }
     }
-}
+})
 
-export const CommentUser = async () => {
+export const CommentUser = cache(async () => {
     try {
         const comments = await prisma.comment.findMany({
             include: {
@@ -191,10 +185,9 @@ export const CommentUser = async () => {
             message: "cann't get comment"
         }
     }
-}
+})
 
-export const likeUser = async (id: string) => {
-    const userId = await getUserId()
+export const likeUser = cache(async (id: string, userId: string) => {
     try {
         const like = await prisma.like.findFirst({
             where: {
@@ -208,9 +201,9 @@ export const likeUser = async (id: string) => {
             message: "like user"
         }
     }
-}
+})
 
-export const AllUser = async () => {
+export const AllUser = cache(async () => {
     try {
         const users = await prisma.user.findMany({
             include: {
@@ -224,9 +217,9 @@ export const AllUser = async () => {
             message: "failed to get user"
         }
     }
-}
+})
 
-export const CommentById = async (postId: string) => {
+export const CommentById = cache(async (postId: string) => {
     try {
         const comment = await prisma.comment.findMany({
             where: {
@@ -247,10 +240,9 @@ export const CommentById = async (postId: string) => {
             message: "can't fatch"
         }
     }
-}
+})
 
-export const LikeOnComment = async (commentId: string) => {
-    noStore()
+export const LikeOnComment = cache(async (commentId: string) => {
     const userId = await getUserId()
     try {
         const like = await prisma.like.findFirst({
@@ -265,10 +257,9 @@ export const LikeOnComment = async (commentId: string) => {
             message: "failed to get like"
         }
     }
-}
+})
 
-export const ReplyByCommentId = async (commentId: string) => {
-    noStore()
+export const ReplyByCommentId = cache(async (commentId: string) => {
     try {
         const replies = await prisma.reply.findMany({
             where: {
@@ -284,9 +275,9 @@ export const ReplyByCommentId = async (commentId: string) => {
             message: "failed to get"
         }
     }
-}
+})
 
-export const Bookmark = async () => {
+export const Bookmark = cache(async () => {
     try {
         const bookmarks = await prisma.save.findMany({
             include: {
@@ -303,9 +294,9 @@ export const Bookmark = async () => {
             message: "failed to get bookmark"
         }
     }
-}
+})
 
-export const UserById = async (userId: string) => {
+export const UserById = cache(async (userId: string) => {
     try {
         const user = await prisma.user.findMany({
             where: {
@@ -322,10 +313,9 @@ export const UserById = async (userId: string) => {
             message: "can't get data"
         }
     }
-}
+})
 
-export const FolloPost = async (followerId: string) => {
-    noStore()
+export const FolloPost = cache(async (followerId: string) => {
     try {
         const posts = await prisma.post.findMany({
             where: {
@@ -375,4 +365,4 @@ export const FolloPost = async (followerId: string) => {
             message: "can't fatch"
         }
     }
-}
+})

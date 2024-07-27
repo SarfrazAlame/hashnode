@@ -6,20 +6,22 @@ import SwitchThemeProvider from "./SwitchThemeProvider";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import Signup from "./Signup";
-import { UserDetails } from "@/auth/Recieve";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { getUserId } from "@/lib/utils";
 import { getAuthOptions } from "@/lib/auth";
+import { UserDetails } from "@/auth/Recieve";
 
 const Header = async () => {
+  const userId = await getUserId();
   const session = await getAuthOptions();
-  const user = session?.user;
-
-  const mainUser = await UserDetails(user?.id!, user?.email!);
+  const mainUser = await UserDetails(userId);
   const style = "text-gray-500";
+
+  const user = session?.user;
 
   return (
     <div className="h-[67px] w-full flex items-center justify-between border-b border-gray-200 dark:border-gray-700 bg-slate-100 dark:bg-gray-900 md:px-12 sm:px-5 px-3">
@@ -59,7 +61,7 @@ const Header = async () => {
         />
         <div className="flex gap-1 items-center bg-blue-600 py-1.5 px-3 rounded-full">
           <TbPencilMinus className="text-white cursor-pointer" />
-          {user ? (
+          {userId ? (
             <>
               <Link href={"/draft"} className="text-white text-[13px]">
                 Write
@@ -69,7 +71,6 @@ const Header = async () => {
             <>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  {" "}
                   <button className="text-white text-[13px]">Write</button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -79,7 +80,7 @@ const Header = async () => {
             </>
           )}
         </div>
-        {user ? (
+        {userId ? (
           <>
             <div>
               <SwitchThemeProvider style={style} />

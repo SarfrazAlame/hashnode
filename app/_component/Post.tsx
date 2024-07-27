@@ -9,9 +9,9 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { BookMark, userFollow, UserProfile } from "@/auth/Recieve";
-import { getServerSession } from "next-auth";
-import { authOptions, getAuthOptions } from "@/lib/auth";
+import { getAuthOptions } from "@/lib/auth";
 import Follow from "./Follow";
+import { getUserId } from "@/lib/utils";
 
 const Post = async ({
   post,
@@ -22,7 +22,8 @@ const Post = async ({
 }) => {
   const user = await UserProfile(post.user.username!);
   const ownerUser = await getAuthOptions();
-  const followUser = await userFollow(post.user.id);
+  const userId = await getUserId();
+  const followUser = await userFollow(post.user.id, userId);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
   const monthNames = [
     "Jan",
@@ -64,7 +65,7 @@ const Post = async ({
                         height={70}
                         className="rounded-full"
                       />
-                      {ownerUser?.user.id !== user?.id ? (
+                      {post.userId !== userId ? (
                         <Follow
                           // @ts-ignore
                           user={user}

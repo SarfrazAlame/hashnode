@@ -1,8 +1,12 @@
-"use client";
-import { redirect  } from "next/navigation";
-import React from "react";
+import { getAuthOptions } from "@/lib/auth";
+import { getUserId } from "@/lib/utils";
+import { redirect } from "next/navigation";
 
-const page = () => {
+const page = async () => {
+  const userId = await getUserId();
+  if (!userId) {
+    redirect("/login");
+  }
   return redirect("/blogs");
 };
 

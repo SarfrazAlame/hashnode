@@ -1,13 +1,12 @@
 import { AllUser, BlogPost } from "@/auth/Recieve";
 import Commenters from "../_component/Commenters";
-import { getServerSession } from "next-auth";
-import { authOptions, getAuthOptions } from "@/lib/auth";
+import { getAuthOptions } from "@/lib/auth";
 import BelowHead from "@/components/BelowHead";
 
 const page = async () => {
   const { posts } = await BlogPost();
   const { users } = await AllUser();
-  const ownerUser = await  getAuthOptions()
+  const ownerUser = await getAuthOptions();
 
   return (
     <main className="flex w-full justify-center items-center">
@@ -16,7 +15,7 @@ const page = async () => {
           <BelowHead posts={posts} />
         </div>
         {/* @ts-ignore */}
-        <Commenters user={users} ownerUser={ownerUser} />
+        <Commenters user={users} ownerUser={ownerUser?.user} />
       </div>
     </main>
   );

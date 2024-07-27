@@ -81,7 +81,7 @@ export const PostBlog = async (value: z.infer<typeof formSchems>) => {
 
     const validatedField = formSchems.safeParse(value)
 
-    if (!validatedField.success) {
+    if (!validatedField.success || !userId) {
         throw new Error("can't post")
     }
 
@@ -143,7 +143,7 @@ export const FollowUser = async (id: string) => {
     try {
         await prisma.follows.create({
             data: {
-                followerId: userId,
+                followerId: userId!,
                 followingId: id
             }
         })
@@ -158,6 +158,10 @@ export const FollowUser = async (id: string) => {
 
 export const BookMarkPost = async (id: string) => {
     const userId = await getUserId()
+
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
 
     const bookmark = await prisma.save.findUnique({
         where: {
@@ -208,7 +212,7 @@ export const BookMarkPost = async (id: string) => {
 export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSchema>) => {
     const userId = await getUserId()
     const validatedField = DiscussionsSchema.safeParse(value)
-    if (!validatedField.success) {
+    if (!validatedField.success || !userId) {
         throw new Error("Write comment")
     }
     const { body } = validatedField.data
@@ -230,6 +234,9 @@ export const AddComment = async (id: string, value: z.infer<typeof DiscussionsSc
 
 export const LikePost = async (id: string) => {
     const userId = await getUserId()
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
     try {
         await prisma.like.create({
             data: {
@@ -247,6 +254,9 @@ export const LikePost = async (id: string) => {
 
 export const LikeComment = async (commentId: string) => {
     const userId = await getUserId()
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
     try {
         await prisma.like.create({
             data: {
@@ -265,7 +275,7 @@ export const LikeComment = async (commentId: string) => {
 export const CommentOnReply = async (commentId: string, value: z.infer<typeof ReplySchema>) => {
     const userId = await getUserId()
     const validatedField = ReplySchema.safeParse(value)
-    if (!validatedField.success) {
+    if (!validatedField.success || !userId) {
         throw new Error('Unauthorized')
     }
     const { response } = validatedField.data;

@@ -5,10 +5,11 @@ import NowFollow from "./NowFollow";
 import { getUserId } from "@/lib/utils";
 
 const Explore = async ({ user }: { user: User }) => {
-  const follow = await userFollow(user.id);
+  const userId = await getUserId();
+  const follow = await userFollow(user.id, userId);
   return (
     <div>
-     <NowFollow follow={follow} user={user}/>
+      <NowFollow follow={follow} user={user} />
     </div>
   );
 };

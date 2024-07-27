@@ -13,7 +13,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
   const userId = await getUserId();
   const user = ownerUser?.user;
-  const follow = await userFollow(post.user.id);
+  const follow = await userFollow(post.user.id,userId);
   return (
     <Conversation
       post={post}

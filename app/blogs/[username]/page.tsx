@@ -1,6 +1,7 @@
 import FollowIcon from "@/app/_component/FollowIcon";
 import { userFollow, UserProfile } from "@/auth/Recieve";
 import { authOptions } from "@/lib/auth";
+import { getUserId } from "@/lib/utils";
 import { PenIcon, Plus } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -23,7 +24,8 @@ const page = async ({
 }) => {
   const user = await UserProfile(username);
   const ownerUser = await getServerSession(authOptions);
-  const follow = await userFollow(user?.id!);
+  const userId = await getUserId()
+  const follow = await userFollow(user?.id!,userId);
 
   return (
     <div className="w-full h-screen flex ">

@@ -45,20 +45,26 @@ const Conversations = ({
             name="body"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  <Image
-                    src={user?.image!}
-                    alt=""
-                    width={25}
-                    height={25}
-                    className="rounded-full absolute top-7 left-10"
-                  />
-                </FormLabel>
-                <Input
-                  {...field}
-                  placeholder="Add a thoughtful comment"
-                  className="px-14 h-16 focus-visible:ring-1 focus-visible:ring-blue-500"
-                />
+                {user ? (
+                  <>
+                    <FormLabel>
+                      <Image
+                        src={user?.image!}
+                        alt=""
+                        width={25}
+                        height={25}
+                        className="rounded-full absolute top-7 left-10"
+                      />
+                    </FormLabel>
+                    <Input
+                      {...field}
+                      placeholder="Add a thoughtful comment"
+                      className="px-14 h-16 focus-visible:ring-1 focus-visible:ring-blue-500"
+                    />
+                  </>
+                ) : (
+                  <p>Sign in to discuss</p>
+                )}
               </FormItem>
             )}
           />

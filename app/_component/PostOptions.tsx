@@ -75,14 +75,14 @@ const PostOptions = ({
               <h1 className="text-xl">Comments({post?.comments?.length})</h1>
               <div className="flex gap-2 items-center">
                 <Image
-                  src={user.image!}
+                  src={user?.image!}
                   alt=""
                   width={30}
                   height={30}
                   className="rounded-full"
                 />
                 <p className="font-semibold text-sm text-slate-700 dark:text-slate-200">
-                  {user.name}
+                  {user?.name}
                 </p>
               </div>
               <Form {...form}>
@@ -108,7 +108,7 @@ const PostOptions = ({
               <hr />
               <div className="flex flex-col gap-y-6">
                 {comments.map((com: CommnetWithUser) => (
-                  <div className="flex flex-col gap-y-3">
+                  <div className="flex flex-col gap-y-3" key={com.id}>
                     <div className="flex items-center gap-1">
                       <Image
                         src={com.user.image!}

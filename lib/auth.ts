@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: '/login'
     },
-    
+
     callbacks: {
         async session({ session, token }) {
             if (session) {
@@ -62,7 +62,6 @@ export const authOptions: NextAuthOptions = {
             }
             return token
         },
-
     }
 }
 

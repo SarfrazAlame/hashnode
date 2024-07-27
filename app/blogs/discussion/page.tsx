@@ -3,7 +3,7 @@ import Conversations from "@/app/_component/Conversations";
 import Post from "@/app/_component/Post";
 import RespectiveComments from "@/app/_component/RespectiveComments";
 import { AllUser, BlogPost } from "@/auth/Recieve";
-import { authOptions } from "@/lib/auth";
+import { authOptions, getAuthOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import React from "react";
 
@@ -11,7 +11,7 @@ const page = async () => {
   const { users } = await AllUser();
   const { posts } = await BlogPost();
   const className = "border-t border-r border-l rounded-xl";
-  const ownerUser = await getServerSession(authOptions);
+  const ownerUser = await getAuthOptions();
 
   return (
     <div className="flex w-full items-center justify-center">
