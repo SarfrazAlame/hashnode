@@ -2,7 +2,6 @@ import { PostWithAll } from "@/lib/type";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import LikeComment from "./LikeComment";
 import {
   HoverCard,
   HoverCardContent,
@@ -10,8 +9,11 @@ import {
 } from "@/components/ui/hover-card";
 import { BookMark, userFollow, UserProfile } from "@/auth/Recieve";
 import { getAuthOptions } from "@/lib/auth";
-import Follow from "./Follow";
 import { getUserId } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const Follow = dynamic(() => import("./Follow"));
+const LikeComment = dynamic(() => import("./LikeComment"));
 
 const Post = async ({
   post,
@@ -21,10 +23,13 @@ const Post = async ({
   className: string;
 }) => {
   const user = await UserProfile(post.user.username!);
-  const ownerUser = await getAuthOptions();
-  const userId = await getUserId();
+  const mainUser = await getAuthOptions();
+  const UserId = await getUserId();
+  const [ownerUser, userId] = await Promise.all([mainUser, UserId]);
+
   const followUser = await userFollow(post.user.id, userId);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
+
   const monthNames = [
     "Jan",
     "Feb",
@@ -72,6 +77,7 @@ const Post = async ({
                           post={post}
                           // @ts-ignore
                           followUser={followUser}
+                          userId={userId}
                           className="border-blue-600 text-blue-500 py-1 px-2 "
                         />
                       ) : null}

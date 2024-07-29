@@ -5,10 +5,15 @@ import Link from "next/link";
 import React from "react";
 import { LiaPencilAltSolid } from "react-icons/lia";
 import { MdPeople } from "react-icons/md";
+import PostSkeleton from "./PostSkeleton";
 
-const Post = dynamic(()=>import('@/app/_component/Post'),{
-  loading:()=><p>wait loading...</p>
-})
+const Post = dynamic(() => import("@/app/_component/Post"), {
+  loading: () => (
+    <p>
+      <PostSkeleton />
+    </p>
+  ),
+});
 
 const BelowHead = ({ posts }: { posts: PostWithAll[] | undefined }) => {
   const className = "border rounded-xl";

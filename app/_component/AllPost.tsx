@@ -2,21 +2,23 @@ import { AllUser, BlogPost } from "@/auth/Recieve";
 import { getAuthOptions } from "@/lib/auth";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import PostSkeleton from "@/components/PostSkeleton";
+import CommenterSkeleton from "@/components/CommenterSkeleton";
 
 const BelowHead = dynamic(() => import("@/components/BelowHead"), {
-  loading: () => <p>Loading....</p>,
+  loading: () => <p><PostSkeleton/></p>,
 });
-const Commenters = dynamic(() => import("../_component/Commenters"));
+const Commenters = dynamic(() => import("../_component/Commenters"),{
+  loading:()=><p><CommenterSkeleton/></p>
+});
 
 const AllPost = async () => {
   const Allposts = useMemo(async () => BlogPost(), []);
   const Allusers = AllUser();
-  const MainUser = getAuthOptions();
 
-  const [posts, users, ownerUser] = await Promise.all([
+  const [posts, users] = await Promise.all([
     Allposts,
     Allusers,
-    MainUser,
   ]);
 
   return (

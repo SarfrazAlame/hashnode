@@ -16,14 +16,14 @@ const Connect = ({
     <div className="mx-auto">
       {follow ? (
         <button
-          onClick={() => FollowUser(user.id)}
+          onClick={() => FollowUser(user.id,userId)}
           className="px-5 border py-2 rounded-full border-blue-500 text-center text-blue-500"
         >
           following
         </button>
       ) : (
         <button
-          onClick={() => FollowUser(user.id)}
+          onClick={() => FollowUser(user.id,userId)}
           className="px-5 border py-2 rounded-full border-blue-500 text-blue-500"
         >
           Follow

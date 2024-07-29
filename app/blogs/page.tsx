@@ -12,17 +12,7 @@ const AllPost = dynamic(() => import("../_component/AllPost"), {
 });
 
 const page = () => {
-  return (
-    <Suspense
-      fallback={
-        <>
-          <PostSkeleton />
-        </>
-      }
-    >
-      <AllPost />
-    </Suspense>
-  );
+  return <AllPost />;
 };
 
 export default page;

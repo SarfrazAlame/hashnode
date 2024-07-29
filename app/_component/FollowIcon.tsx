@@ -9,16 +9,18 @@ import { IoCheckmark } from "react-icons/io5";
 const FollowIcon = ({
   user,
   follow,
+  userId
 }: {
   user: UserWithAll;
   follow: Follows | { message: string } | null;
+  userId:string
 }) => {
   return (
     <div>
       {follow ? (
         <>
           <button
-            onClick={() => FollowUser(user?.id)}
+            onClick={() => FollowUser(user?.id,userId)}
             className="flex items-center gap-1 border border-blue-500 text-blue-500  px-3 py-2 rounded-full font-[500] text-sm"
           >
             <IoCheckmark size={18} />
@@ -27,7 +29,7 @@ const FollowIcon = ({
         </>
       ) : (
         <button
-          onClick={() => FollowUser(user.id)}
+          onClick={() => FollowUser(user.id,userId)}
           className="flex items-center gap-1 px-3 py-2 rounded-full text-sm font-[500] bg-blue-600 text-white "
         >
           <Plus size={18} className="text-white" />

@@ -61,7 +61,7 @@ const page = async ({
               </Link>
             ) : (
               // @ts-ignore
-              <FollowIcon user={user} follow={follow} />
+              <FollowIcon user={user} follow={follow} userId={userId}/>
             )}
           </div>
         </div>

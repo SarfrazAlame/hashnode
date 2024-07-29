@@ -11,17 +11,19 @@ const Follow = ({
   user,
   followUser,
   className,
+  userId,
 }: {
   user: UserWithAll;
   followUser: Follows;
   className: string;
+  userId: string;
 }) => {
   return (
     <div>
       {followUser ? (
         <>
           <button
-            onClick={() => FollowUser(user?.id)}
+            onClick={() => FollowUser(user?.id, userId)}
             className={`${className} bg-inherit rounded-full border text-[13px] flex items-center gap-1`}
           >
             <IoCheckmarkOutline size={16} /> Following
@@ -30,7 +32,7 @@ const Follow = ({
       ) : (
         <>
           <button
-            onClick={() => FollowUser(user?.id)}
+            onClick={() => FollowUser(user?.id, userId)}
             className={`${className} rounded-full text-sm flex items-center gap-2`}
           >
             <Plus size={20} /> Follow
