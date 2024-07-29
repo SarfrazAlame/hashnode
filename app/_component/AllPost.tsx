@@ -1,10 +1,15 @@
 import { AllUser, BlogPost } from "@/auth/Recieve";
-import Commenters from "../_component/Commenters";
 import { getAuthOptions } from "@/lib/auth";
-import BelowHead from "@/components/BelowHead";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
-const page = async () => {
-  const { posts } = await BlogPost();
+const BelowHead = dynamic(() => import("@/components/BelowHead"),{
+  loading:()=><p>Loading....</p>
+});
+const Commenters = dynamic(() => import("../_component/Commenters"));
+
+const AllPost = async () => {
+  const { posts } = await useMemo(async () => BlogPost(), []);
   const { users } = await AllUser();
   const ownerUser = await getAuthOptions();
 
@@ -20,4 +25,4 @@ const page = async () => {
     </main>
   );
 };
-export default page;
+export default AllPost;

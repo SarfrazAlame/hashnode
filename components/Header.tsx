@@ -12,14 +12,17 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { getUserId } from "@/lib/utils";
-import { getAuthOptions } from "@/lib/auth";
+import { authOptions, getAuthOptions } from "@/lib/auth";
 import { UserDetails } from "@/auth/Recieve";
+import { getServerSession } from "next-auth";
 
 const Header = async () => {
   const userId = await getUserId();
-  const session = await getAuthOptions();
-  const mainUser = await UserDetails(userId);
+  const session = await getServerSession(authOptions);
+  const mainUser = await UserDetails(session?.user.id!);
   const style = "text-gray-500";
+
+  console.log(mainUser)
 
   const user = session?.user;
 

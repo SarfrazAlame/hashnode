@@ -1,10 +1,14 @@
-import Post from "@/app/_component/Post";
 import { PostWithAll } from "@/lib/type";
 import { Medal } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
 import { LiaPencilAltSolid } from "react-icons/lia";
 import { MdPeople } from "react-icons/md";
+
+const Post = dynamic(()=>import('@/app/_component/Post'),{
+  loading:()=><p>wait loading...</p>
+})
 
 const BelowHead = ({ posts }: { posts: PostWithAll[] | undefined }) => {
   const className = "border rounded-xl";

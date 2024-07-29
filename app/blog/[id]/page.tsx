@@ -1,14 +1,12 @@
-import PostOptions from "@/app/_component/PostOptions";
 import {
+  BlogPost,
   CommentById,
   likeUser,
   PostById,
   UserDetails,
   userFollow,
 } from "@/auth/Recieve";
-import Articles from "@/components/Articles";
 import Headers from "@/components/Headers";
-import UserBlog from "@/components/UserBlog";
 import { authOptions } from "@/lib/auth";
 import { PostWithAll } from "@/lib/type";
 import { getServerSession } from "next-auth";
@@ -17,18 +15,34 @@ import React from "react";
 import { HiOutlineBookOpen } from "react-icons/hi2";
 import Link from "next/link";
 import { getUserId } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+export async function generateStaticParams(): Promise<string[]> {
+  const posts = await BlogPost();
+  return posts.posts?.map(({ id }) => id) as string[];
+}
+
+const PostOptions = dynamic(() => import("@/app/_component/PostOptions"), {
+  loading: () => <p>wait loading...</p>,
+});
+const UserBlog = dynamic(() => import("@/components/UserBlog"), {
+  loading: () => <p>wait loading...</p>,
+});
+const Articles = dynamic(() => import("@/components/Articles"), {
+  loading: () => <p>wait loading...</p>,
+});
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore
   const post: PostWithAll = await PostById(id);
   const ownerUser = await getServerSession(authOptions);
-  const user = await UserDetails(ownerUser?.user.id!, ownerUser?.user.email!);
+  const user = await UserDetails(ownerUser?.user.id!);
   const comment = await CommentById(post.id);
-  const comments = comment.comment
+  const comments = comment.comment;
   const userId = await getUserId();
-  const like = await likeUser(post?.id,userId);
-  const follow = await userFollow(post.user.id,userId);
- 
+  const like = await likeUser(post?.id, userId);
+  const follow = await userFollow(post.user.id, userId);
+
   const monthNames = [
     "Jan",
     "Feb",
