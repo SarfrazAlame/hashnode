@@ -13,9 +13,11 @@ import { SlUserFollow } from "react-icons/sl";
 const Fbutton = ({
   follow,
   user,
+  userId
 }: {
   follow: Follows | { message: string } | null;
   user: User;
+  userId:string
 }) => {
   return (
     <TooltipProvider>
@@ -25,14 +27,14 @@ const Fbutton = ({
             <>
               <IoCheckmark
                 className="cursor-pointer"
-                onClick={() => FollowUser(user.id)}
+                onClick={() => FollowUser(user.id,userId)}
               />
             </>
           ) : (
             <>
               <SlUserFollow
                 className="cursor-pointer"
-                onClick={() => FollowUser(user.id)}
+                onClick={() => FollowUser(user.id,userId)}
               />
             </>
           )}

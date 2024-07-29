@@ -110,8 +110,7 @@ export const PostBlog = async (value: z.infer<typeof formSchems>) => {
     }
 }
 
-export const FollowUser = async (id: string) => {
-    const userId = await getUserId()
+export const FollowUser = async (id: string, userId: string) => {
     const FollowUser = await prisma.follows.findUnique({
         where: {
             followerId_followingId: {
@@ -143,7 +142,7 @@ export const FollowUser = async (id: string) => {
     try {
         await prisma.follows.create({
             data: {
-                followerId: userId!,
+                followerId: userId,
                 followingId: id
             }
         })
