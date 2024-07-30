@@ -18,6 +18,7 @@ const Follow = ({
   className: string;
   userId: string;
 }) => {
+  // console.log(followUser)
   return (
     <div>
       {followUser ? (

@@ -23,9 +23,10 @@ const Post = async ({
   className: string;
 }) => {
   const user = await UserProfile(post.user.username!);
-  const mainUser = await getAuthOptions();
-  const UserId = await getUserId();
-  const [ownerUser, userId] = await Promise.all([mainUser, UserId]);
+  const ownerUser = await getAuthOptions();
+  const userId = await getUserId();
+
+  console.log(post.user.id)
 
   const followUser = await userFollow(post.user.id, userId);
   const bookmark = await BookMark(post.id, ownerUser?.user.id!);
