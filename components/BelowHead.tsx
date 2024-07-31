@@ -16,7 +16,7 @@ const Post = dynamic(() => import("@/app/_component/Post"), {
 });
 
 const BelowHead = ({ posts }: { posts: PostWithAll[] | undefined }) => {
-
+  
   const className = "border rounded-xl";
   return (
     <div>

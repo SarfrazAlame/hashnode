@@ -1,5 +1,4 @@
 import { AllUser, BlogPost } from "@/auth/Recieve";
-import { getAuthOptions } from "@/lib/auth";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import PostSkeleton from "@/components/PostSkeleton";

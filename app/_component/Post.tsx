@@ -23,6 +23,7 @@ const Post = async ({
 }) => {
   const user = await UserProfile(post.user.username!);
   const userId = await getUserId();
+  
 
   const monthNames = [
     "Jan",
@@ -38,6 +39,7 @@ const Post = async ({
     "Nov",
     "Dece",
   ];
+
 
   return (
     <div className={`${className} flex flex-col gap-y-2  p-5`}>
