@@ -1,9 +1,10 @@
-import { getAuthOptions } from "@/lib/auth";
-import { getUserId } from "@/lib/utils";
+'use client'
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-const page = async () => {
-  const userId = await getUserId();
+const page = () => {
+  const {data:session} = useSession()
+  const userId = session?.user.id
   if (!userId) {
     redirect("/login");
   }

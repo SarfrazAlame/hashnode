@@ -7,20 +7,14 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PostWithAll } from "@/lib/type";
-import { Save } from "@prisma/client";
 import { Bookmark } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { RiBookmarkFill } from "react-icons/ri";
 
-const LikeComment = ({
-  post,
-  bookmark,
-}: {
-  post: PostWithAll;
-  bookmark: Save | { message: string } | null;
-}) => {
+const LikeComment = ({ post }: { post: PostWithAll }) => {
+  const bookmark = false;
   return (
     <div>
       <div className="flex justify-between">

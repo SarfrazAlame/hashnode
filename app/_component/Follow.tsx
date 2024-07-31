@@ -9,16 +9,14 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 
 const Follow = ({
   user,
-  followUser,
   className,
   userId,
 }: {
   user: UserWithAll;
-  followUser: Follows;
   className: string;
   userId: string;
 }) => {
-  // console.log(followUser)
+  const followUser = true
   return (
     <div>
       {followUser ? (
