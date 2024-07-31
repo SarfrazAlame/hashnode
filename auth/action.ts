@@ -110,7 +110,8 @@ export const PostBlog = async (value: z.infer<typeof formSchems>) => {
     }
 }
 
-export const FollowUser = async (id: string, userId: string) => {
+export const FollowUser = async (id: string) => {
+    const userId = await getUserId()
     const FollowUser = await prisma.follows.findUnique({
         where: {
             followerId_followingId: {

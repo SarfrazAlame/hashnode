@@ -10,8 +10,8 @@ import { Follows, User } from "@prisma/client";
 import { IoCheckmark } from "react-icons/io5";
 import { SlUserFollow } from "react-icons/sl";
 
-const Fbutton = ({ user, userId }: { user: User &{followers:Follows,followings:Follows}; userId: string }) => {
-  const isFollow = user.followers.followerId===userId
+const Fbutton = ({ user, userId }: { user: User; userId: string }) => {
+  const isFollow = undefined;
   return (
     <TooltipProvider>
       <Tooltip>
@@ -20,14 +20,14 @@ const Fbutton = ({ user, userId }: { user: User &{followers:Follows,followings:F
             <>
               <IoCheckmark
                 className="cursor-pointer"
-                onClick={() => FollowUser(user.id, userId)}
+                onClick={() => FollowUser(user.id)}
               />
             </>
           ) : (
             <>
               <SlUserFollow
                 className="cursor-pointer"
-                onClick={() => FollowUser(user.id, userId)}
+                onClick={() => FollowUser(user.id)}
               />
             </>
           )}

@@ -17,10 +17,10 @@ import Link from "next/link";
 import { getUserId } from "@/lib/utils";
 import dynamic from "next/dynamic";
 
-export async function generateStaticParams(): Promise<string[]> {
-  const posts = await BlogPost();
-  return posts.posts?.map(({ id }) => id) as string[];
-}
+// export async function generateStaticParams(): Promise<string[]> {
+//   const posts = await BlogPost();
+//   return posts.posts?.map(({ id }) => id) as string[];
+// }
 
 const PostOptions = dynamic(() => import("@/app/_component/PostOptions"), {
   loading: () => <p>wait loading...</p>,
@@ -31,6 +31,15 @@ const UserBlog = dynamic(() => import("@/components/UserBlog"), {
 const Articles = dynamic(() => import("@/components/Articles"), {
   loading: () => <p>wait loading...</p>,
 });
+
+export async function generateStaticParams(){
+  const posts = await prisma?.post.findMany({})
+  return posts?.map((post)=>{
+    return {
+      id:post.id
+    }
+  })
+}
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   // @ts-ignore

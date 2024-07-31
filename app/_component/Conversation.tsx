@@ -58,7 +58,7 @@ const Conversation = ({
             </p>
           </div>
           <div>
-            <LikeComment post={post} bookmark={bookmark} />
+            <LikeComment post={post} />
           </div>
           <div>
             {/* @ts-ignore */}
