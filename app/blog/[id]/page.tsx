@@ -16,6 +16,8 @@ import { HiOutlineBookOpen } from "react-icons/hi2";
 import Link from "next/link";
 import { getUserId } from "@/lib/utils";
 import dynamic from "next/dynamic";
+import { revalidatePath } from "next/cache";
+import { string } from "zod";
 
 // export async function generateStaticParams(): Promise<string[]> {
 //   const posts = await BlogPost();
@@ -32,18 +34,14 @@ const Articles = dynamic(() => import("@/components/Articles"), {
   loading: () => <p>wait loading...</p>,
 });
 
-export async function generateStaticParams(){
-  const posts = await prisma?.post.findMany({})
-  return posts?.map((post)=>{
-    return {
-      id:post.id
-    }
-  })
+const posts = async({id}:{id:string})=>{
+  const post = await PostById(id) as PostWithAll
+  return post
 }
 
-const page = async ({ params: { id } }: { params: { id: string } }) => {
-  // @ts-ignore
-  const post: PostWithAll = await PostById(id);
+
+const page = async ({ params:{id} }: { params: { id: string } }) => {
+  const post = await PostById(id) as PostWithAll
   const ownerUser = await getServerSession(authOptions);
   const user = await UserDetails(ownerUser?.user.id!);
   const comment = await CommentById(post.id);
@@ -51,6 +49,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const userId = await getUserId();
   const like = await likeUser(post?.id, userId);
   const follow = await userFollow(post.user.id, userId);
+
 
   const monthNames = [
     "Jan",

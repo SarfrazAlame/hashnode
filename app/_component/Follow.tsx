@@ -22,7 +22,7 @@ const Follow = ({
       {followUser ? (
         <>
           <button
-            onClick={() => FollowUser(user?.id, userId)}
+            onClick={() => FollowUser(user?.id)}
             className={`${className} bg-inherit rounded-full border text-[13px] flex items-center gap-1`}
           >
             <IoCheckmarkOutline size={16} /> Following
@@ -31,7 +31,7 @@ const Follow = ({
       ) : (
         <>
           <button
-            onClick={() => FollowUser(user?.id, userId)}
+            onClick={() => FollowUser(user?.id)}
             className={`${className} rounded-full text-sm flex items-center gap-2`}
           >
             <Plus size={20} /> Follow

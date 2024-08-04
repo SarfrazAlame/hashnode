@@ -20,7 +20,7 @@ const FollowIcon = ({
       {follow ? (
         <>
           <button
-            onClick={() => FollowUser(user?.id,userId)}
+            onClick={() => FollowUser(user?.id)}
             className="flex items-center gap-1 border border-blue-500 text-blue-500  px-3 py-2 rounded-full font-[500] text-sm"
           >
             <IoCheckmark size={18} />
@@ -29,7 +29,7 @@ const FollowIcon = ({
         </>
       ) : (
         <button
-          onClick={() => FollowUser(user.id,userId)}
+          onClick={() => FollowUser(user.id)}
           className="flex items-center gap-1 px-3 py-2 rounded-full text-sm font-[500] bg-blue-600 text-white "
         >
           <Plus size={18} className="text-white" />
