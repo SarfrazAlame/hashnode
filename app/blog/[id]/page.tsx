@@ -19,10 +19,15 @@ import dynamic from "next/dynamic";
 import { revalidatePath } from "next/cache";
 import { string } from "zod";
 
-// export async function generateStaticParams(): Promise<string[]> {
-//   const posts = await BlogPost();
-//   return posts.posts?.map(({ id }) => id) as string[];
-// }
+export async function generateStaticParams() {
+  const posts = await BlogPost();
+  const post = posts.posts?.map((p)=>{
+    return{
+      id:p.id
+    }
+  })
+  return post?.flat()  
+}
 
 const PostOptions = dynamic(() => import("@/app/_component/PostOptions"), {
   loading: () => <p>wait loading...</p>,
@@ -34,14 +39,13 @@ const Articles = dynamic(() => import("@/components/Articles"), {
   loading: () => <p>wait loading...</p>,
 });
 
-const posts = async({id}:{id:string})=>{
-  const post = await PostById(id) as PostWithAll
-  return post
-}
+const posts = async ({ id }: { id: string }) => {
+  const post = (await PostById(id)) as PostWithAll;
+  return post;
+};
 
-
-const page = async ({ params:{id} }: { params: { id: string } }) => {
-  const post = await PostById(id) as PostWithAll
+const page = async ({ params: { id } }: { params: { id: string } }) => {
+  const post = (await PostById(id)) as PostWithAll;
   const ownerUser = await getServerSession(authOptions);
   const user = await UserDetails(ownerUser?.user.id!);
   const comment = await CommentById(post.id);
@@ -49,7 +53,6 @@ const page = async ({ params:{id} }: { params: { id: string } }) => {
   const userId = await getUserId();
   const like = await likeUser(post?.id, userId);
   const follow = await userFollow(post.user.id, userId);
-
 
   const monthNames = [
     "Jan",
