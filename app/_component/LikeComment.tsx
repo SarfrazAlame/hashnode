@@ -7,14 +7,31 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { PostWithAll } from "@/lib/type";
-import { Bookmark } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useOptimistic } from "react";
 import { FaRegComments } from "react-icons/fa6";
-import { RiBookmarkFill } from "react-icons/ri";
+import { Save } from "@prisma/client";
+import { Bookmark } from "lucide-react";
 
-const LikeComment = ({ post }: { post: PostWithAll }) => {
-  const bookmark = false;
+const LikeComment = ({
+  post,
+  userId,
+}: {
+  post: PostWithAll;
+  userId: string;
+}) => {
+  const predicate = (bookmark: Save) =>
+    bookmark.userId === userId && bookmark.postId === post.id;
+
+  const [optimisticBookmark, addOptimisticBookmark] = useOptimistic<Save[]>(
+    post.saves,
+    // @ts-ignore
+    (state: Save[], newBookmark: Save) =>
+      state?.find(predicate)
+        ? state.filter((save) => save.userId !== userId)
+        : [...state, newBookmark]
+  );
+
   return (
     <div>
       <div className="flex justify-between">
@@ -40,23 +57,24 @@ const LikeComment = ({ post }: { post: PostWithAll }) => {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
-                {bookmark ? (
-                  <>
-                    <RiBookmarkFill
-                      onClick={() => BookMarkPost(post.id)}
-                      size={20}
-                      className="text-slate-600 dark:text-slate-400 cursor-pointer"
-                    />
-                  </>
-                ) : (
-                  <>
+                <form
+                  action={async (formData: FormData) => {
+                    const postId = formData.get("postId") as string;
+                    addOptimisticBookmark({ userId, postId });
+                    await BookMarkPost(postId);
+                  }}
+                >
+                  <input type="hidden" name="postId" value={post.id} />
+                  <button type="submit">
                     <Bookmark
-                      onClick={() => BookMarkPost(post.id)}
-                      size={20}
-                      className="text-slate-600 dark:text-slate-400 cursor-pointer"
+                      className={
+                        optimisticBookmark?.some(predicate)
+                          ? "text-gray-800 fill-gray-800 dark:text-gray-50 dark:fill-gray-50"
+                          : "text-slate-800 dark:text-slate-200"
+                      }
                     />
-                  </>
-                )}
+                  </button>
+                </form>
               </TooltipTrigger>
               <TooltipContent>
                 <p className="text-[11px]">Save for later</p>

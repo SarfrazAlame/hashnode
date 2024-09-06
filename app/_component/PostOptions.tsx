@@ -1,12 +1,11 @@
 "use client";
 import { CommnetWithUser, PostWithAll } from "@/lib/type";
 import React, { useOptimistic } from "react";
-import { HiOutlineHeart } from "react-icons/hi2";
 import { AiOutlineComment } from "react-icons/ai";
 import { Bookmark, Heart } from "lucide-react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AddComment, LikePost } from "@/auth/action";
-import { Comment, Like, Post, User } from "@prisma/client";
+import { Like, User } from "@prisma/client";
 import {
   Sheet,
   SheetContent,
@@ -21,19 +20,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { Form, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import ActionIcon from "@/components/ActionIcon";
 
 const PostOptions = ({
   post,
-  like,
   user,
   comments,
   userId,
 }: {
   post: PostWithAll;
-  like: Like | { message: string } | null;
   user: User;
   comments: CommnetWithUser[];
   userId: string;

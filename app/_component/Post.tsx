@@ -136,7 +136,7 @@ const Post = async ({
           />
         </Link>
       </div>
-      <LikeComment post={post} />
+      <LikeComment post={post} userId={userId}/>
     </div>
   );
 };
