@@ -21,12 +21,12 @@ import { string } from "zod";
 
 export async function generateStaticParams() {
   const posts = await BlogPost();
-  const post = posts.posts?.map((p)=>{
-    return{
-      id:p.id
-    }
-  })
-  return post?.flat()  
+  const post = posts.posts?.map((p) => {
+    return {
+      id: p.id,
+    };
+  });
+  return post?.flat();
 }
 
 const PostOptions = dynamic(() => import("@/app/_component/PostOptions"), {
@@ -121,6 +121,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
           <PostOptions
             post={post}
             like={like}
+            userId={userId}
             // @ts-ignore
             user={user}
             // @ts-ignore
