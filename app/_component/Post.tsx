@@ -23,7 +23,6 @@ const Post = async ({
 }) => {
   const user = await UserProfile(post.user.username!);
   const userId = await getUserId();
-  
 
   const monthNames = [
     "Jan",
@@ -71,8 +70,8 @@ const Post = async ({
                         <Follow
                           // @ts-ignore
                           user={user}
-                          post={post}
                           userId={userId}
+                          post={post}
                           className="border-blue-600 text-blue-500 py-1 px-2 "
                         />
                       ) : null}

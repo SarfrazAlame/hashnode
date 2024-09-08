@@ -58,7 +58,7 @@ const Conversation = ({
             </p>
           </div>
           <div>
-            <LikeComment post={post} />
+            <LikeComment post={post} userId={userId} />
           </div>
           <div>
             {/* @ts-ignore */}

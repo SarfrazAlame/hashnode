@@ -12,6 +12,7 @@ import React, { useOptimistic } from "react";
 import { FaRegComments } from "react-icons/fa6";
 import { Save } from "@prisma/client";
 import { Bookmark } from "lucide-react";
+import toast from "react-hot-toast";
 
 const LikeComment = ({
   post,

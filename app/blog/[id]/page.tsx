@@ -16,18 +16,7 @@ import { HiOutlineBookOpen } from "react-icons/hi2";
 import Link from "next/link";
 import { getUserId } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import { revalidatePath } from "next/cache";
-import { string } from "zod";
-
-export async function generateStaticParams() {
-  const posts = await BlogPost();
-  const post = posts.posts?.map((p) => {
-    return {
-      id: p.id,
-    };
-  });
-  return post?.flat();
-}
+ 
 
 const PostOptions = dynamic(() => import("@/app/_component/PostOptions"), {
   loading: () => <p>wait loading...</p>,
@@ -39,10 +28,6 @@ const Articles = dynamic(() => import("@/components/Articles"), {
   loading: () => <p>wait loading...</p>,
 });
 
-const posts = async ({ id }: { id: string }) => {
-  const post = (await PostById(id)) as PostWithAll;
-  return post;
-};
 
 const page = async ({ params: { id } }: { params: { id: string } }) => {
   const post = (await PostById(id)) as PostWithAll;

@@ -1,25 +1,38 @@
 "use client";
 
 import { FollowUser } from "@/auth/action";
-import { UserWithAll } from "@/lib/type";
+import { PostWithAll, UserWithAll } from "@/lib/type";
 import { Follows } from "@prisma/client";
 import { Plus } from "lucide-react";
-import React from "react";
+import React, { useOptimistic } from "react";
 import { IoCheckmarkOutline } from "react-icons/io5";
 
 const Follow = ({
   user,
   className,
   userId,
+  post,
 }: {
   user: UserWithAll;
   className: string;
   userId: string;
+  post: PostWithAll;
 }) => {
-  const followUser = true
+  const isFollowing = user.follower?.some((user) => user.followerId === userId);
+
+  const [optimistFollow, addOptimisticFollow] = useOptimistic(
+    user.follower,
+    // @ts-ignore
+    (state: Follows[], newFollow: Follows) => {
+      state.some((user) => user.followerId === userId)
+        ? state.filter((user) => user.followerId !== userId)
+        : [...state, newFollow];
+    }
+  );
+
   return (
     <div>
-      {followUser ? (
+      {isFollowing ? (
         <>
           <button
             onClick={() => FollowUser(user?.id)}
