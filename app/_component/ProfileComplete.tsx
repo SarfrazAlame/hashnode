@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { AccountSchema, UserSchema } from "@/lib/Schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -24,6 +25,7 @@ type User =
   | undefined;
 
 const ProfileComplete = ({ user }: { user: User }) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof AccountSchema>>({
     resolver: zodResolver(AccountSchema),
     defaultValues: {
@@ -39,6 +41,7 @@ const ProfileComplete = ({ user }: { user: User }) => {
     try {
       await CreateAccount(value, user?.email!);
       toast.success("Profile completed");
+      router.push("/blogs");
     } catch (error) {
       console.log(error);
       toast.error("something went wrong");
